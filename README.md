@@ -9,9 +9,10 @@ Proyecto grupal para el módulo "Programador Full Stack" de la tecnicatura en de
 - Blasiche Andrés | [GitHub](https://github.com/blasichea)
 - Cabrera Verónica | [GitHub](https://github.com/Verosolc30)
 - Castillo Fernanda | [GitHub](https://github.com/FernandaACastillo)
-- Krenn Federico Nicolás | [GitHub](https://github.com/fedekrenn)
-- Liendo Germán Emanuel | [GitHub](https://github.com/g3rm6nI)
-- Gillini Emiliano | [GitHub](https://github.com/g3rm6nI)
+- Krenn Federico | [GitHub](https://github.com/fedekrenn)
+- Liendo Germán Emanuel | [GitHub](https://github.com/g3rm6n)
+- Gillini Emiliano | [GitHub](https://github.com/emigillini)
+- Caminos Picco Diego | [GitHub](https://github.com/DiegoECP)
 
 ## 💻 Descripción del proyecto 
 
@@ -21,14 +22,14 @@ Se trata de una aplicación web fullstack para una tienda ecommerce, el rubro se
 
 1 - Clonar el proyecto
 
-`git clone https://github.com/proyecto-modulo-programador/programador.git`
+`git clone https://github.com/ISPC-23/FullStack2024.git`
 
 ![image](https://github.com/ISPC-23/FullStack2023/assets/132081100/29c5e580-8044-4560-8a41-f70178a0cc54)
 
 
 ### 📃 Documentación:
 
-Toda la documentación del proyecto tal como el documento IEEE830, los diagramas (de clase, entidad-relación, etc), la documentación de las ceremonias, etc. Pueden encontrarse en la  [Wiki del repositorio](https://github.com/ISPC-23/FullStack2023/wiki)
+Toda la documentación del proyecto tal como el documento IEEE830, los diagramas (de clase, entidad-relación, etc), la documentación de las ceremonias, etc. Pueden encontrarse en la  [Wiki del repositorio](https://github.com/ISPC-23/FullStack2024/wiki)
 
 ## ❗ Puntos a tener en cuenta
 
