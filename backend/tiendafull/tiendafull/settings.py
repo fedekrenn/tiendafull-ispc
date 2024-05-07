@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "app_tiendafull"
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'tiendafull.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': "birbwlmtgx9foskz7htp",
+        "USER": "ufviyunwoxe5dduk",
+        "PASSWORD": "Ta5bGQSqJnDfsuUEpcyH",
+        "HOST": "birbwlmtgx9foskz7htp-mysql.services.clever-cloud.com",
+        "PORT": "3306",
     }
 }
 
