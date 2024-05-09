@@ -5,12 +5,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GaleriaProductosComponent } from './components/galeria-productos/galeria-productos.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent,LoginPageComponent, ProductoComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent,LoginPageComponent, ProductoComponent, LandingPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
