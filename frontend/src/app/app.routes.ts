@@ -10,10 +10,10 @@ import { Pagina404Component } from './components/pagina-404/pagina-404.component
 export const routes: Routes = [
     {path:"Home", component:LandingPageComponent},
     {path:"Productos", component:GaleriaProductosComponent},
-    {path:"Detalle", component:ProductoComponent},
+    {path:"Detalle/:id", component:ProductoComponent},
     {path:"Login", component:LoginPageComponent},
-    {path:"Registro", component:RegistroComponent},
     {path:"Dashboard", component:CustomerDashboardComponent},
+    {path:"Registro", component:RegistroComponent},
     {path:"", redirectTo:"/Home", pathMatch:"full"},
     {path:"**", component:Pagina404Component}
 

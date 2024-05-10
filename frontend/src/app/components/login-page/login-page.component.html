@@ -8,6 +8,8 @@
           <div class="text-center">
             <h3 class="fw-bold">Bienvenido/a <span id="nombre"></span></h3>
           </div>
+          
+ 
           <!-- Login -->
           <form [formGroup]="form" (ngSubmit)="validarUsuario()">
             <div class="mb-4">
@@ -32,7 +34,7 @@
             <div class="my-3">
               <span
                 >Si no tienes cuenta,
-                <a href="./registro.html"> Regístrate</a></span
+                <a routerLink="/Registro"> Regístrate</a></span
               >
               <br>
               <span
@@ -46,4 +48,3 @@
       </div>
     </div>
   </main>
- 
