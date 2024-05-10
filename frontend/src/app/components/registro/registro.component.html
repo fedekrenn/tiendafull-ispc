@@ -1,0 +1,49 @@
+<main class="row justify-content-center">
+	<div class="container my-3">
+		<div class="row align-items">
+			<div class="row justify-content-end">
+				<img class="logo-login" src="../../../assets/logo-tienda.png" alt="Logo">
+			</div>
+			<div class="text-center">
+				<h3 class="fw-bold">Registro de nuevo usuario</h3>
+			</div>
+
+			<form id="form" class="register-form">
+				<label for="nombre" class="form-label">Nombre:
+					<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Jose"
+						maxlength="50" required>
+					<span id="nombre-legend"></span>
+				</label>
+				<label for="apellido" class="form-label">Apellido:
+					<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Hernandez"
+						maxlength="45" required>
+					<span id="apellido-legend"></span>
+				</label>
+				<label for="dni" class="form-label">DNI:
+					<input type="number" class="form-control" id="dni" name="dni" placeholder="Ej: 20111222"
+						required>
+					<span id="dni-legend"></span>
+				</label>
+				<label for="tel" class="form-label">Teléfono:
+					<input type="tel" class="form-control" id="tel" name="tel" required pattern="^[0-9]{10}$"
+						placeholder="Código de área sin el 0 y número sin el 15">
+					<span id="tel-legend"></span>
+				</label>
+				<label for="email" class="form-label">Email:
+					<input type="email" class="form-control" id="email" name="email" placeholder="joseh@gmail.com"
+						maxlength="50" required>
+				</label>
+				<label for="pass1" class="form-label">Contraseña:
+					<input type="password" class="form-control" id="pass1" name="pass1" maxlength="20" required>
+					<span id="pass1-legend"></span>
+				</label>
+				<label for="pass2" class="form-label">Repetir contraseña:
+					<input type="password" class="form-control" id="pass2" name="pass2" maxlength="20" required>
+					<span id="pass2-legend"></span>
+				</label>
+				<button type="submit" class="btn btn-primary">Crear cuenta</button>
+				<span>Si ya tienes cuenta, <a href="./login.html"> Logueate</a></span> <br>
+			</form>
+		</div>
+	</div>
+</main>
