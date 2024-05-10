@@ -9,6 +9,8 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { RegistroComponent } from './components/registro/registro.component';
 import { CustomerDashboardComponent } from './components/customer-dashboard/customer-dashboard.component';
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
