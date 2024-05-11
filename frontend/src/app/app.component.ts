@@ -8,13 +8,12 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { CustomerDashboardComponent } from './components/customer-dashboard/customer-dashboard.component';
-
-
+import { ContactPageComponent } from './components/contact-page/contact-page.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent,LoginPageComponent, ProductoComponent, LandingPageComponent, RegistroComponent,CustomerDashboardComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent,LoginPageComponent, ProductoComponent, LandingPageComponent, RegistroComponent,CustomerDashboardComponent, ContactPageComponent ], 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
