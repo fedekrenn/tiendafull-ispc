@@ -1,13 +1,15 @@
 import {Component} from '@angular/core';
-import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import {FormBuilder,FormGroup,Validators,ReactiveFormsModule} from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-reset-password-page',
+  imports: [ReactiveFormsModule ],
   templateUrl: './reset-password-page.component.html',
   styleUrls: ['./reset-password-page.component.css']
 })
 export class ResetPasswordPageComponent {
-  form!:FormGroup
+  form:FormGroup
   constructor(private formBuilder:FormBuilder){
     this.form = this.formBuilder.group({
       email:['',[Validators.required, Validators.email]]
