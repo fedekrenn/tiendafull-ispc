@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #4b93d4;
+}
+
+h1 {
+    text-align: center;
+    margin: 60px 0;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+img {
+    width: 100%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #e4e4e4;
+}
+
+main {
+    padding: 10px 20px;
+    min-height: 100vh;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background-color: #2b3035;
+    color: #fff;
+    padding: 20px;
+}
+
+footer ul {
+    display: flex;
+    gap: 15px;
+}
+
+.main-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.main-card{
+    display: flex;
+    /* justify-content: space-evenly; */
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    min-height: 450px;
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 8px 8px 10px #5353536e;
+}
+
+.main-card img {
+    width: 50%;
+    height: 500px;
+    object-fit: cover;
+    
+}
+
+.main-card h1 {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.main-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 40%;
+    flex: 1;
+}
+
+.main-card .item-card-btn{
+    display: block;
+    text-align: center;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    padding: 15px;
+    width: 300px;
+    height: 400px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 10px #5353536e;
+}
+
+.item-card-btn {
+    padding: 10px;
+    font-family: Arial;
+    border-width: 1px;
+    color: #fff;
+    border-color: #3866a3;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0px 1px 0px 0px #bee2f9;
+    text-shadow: 0px 1px 0px #7cacde;
+    background: linear-gradient(#63b8ee, #468ccf);
+    text-decoration: none;
+}
+
+.item-card:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.item-card-btn:hover {
+    background: #03244e;
+    transition: 0.5s;
+}
+
+.logo-tienda {
+    width: 100px;
+}
+
+.product-section {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    max-width: 1050px;
+    gap: 30px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 10px #5353536e;
+}
+
+.product-section img {
+    width: 500px;
+    object-fit: contain;
+}
+
+.product-section .detail-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 400px;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 600px;
+}
+
+.product-section h2 {
+    font-size: 1.5em;
+}
+
+.product-section .price {
+    font-size: 2.1em;
+}
+
+.contact-page {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.container {
+    max-width: 500px;
+    min-height: 500px;
+    padding: 20px;
+    margin: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    margin: 10px;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-form {
+    margin-top: 20px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+}
+
+.contact-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.info-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.info-page h2 {
+    font-size: 1.5em;
+    margin: 30px 0 10px 0;
+}
+
+.info-page img {
+    max-width: 800px;
+    object-fit: contain;
+    display: block;
+    margin: 60px auto 40px auto;
+}
+
+.lista-desarralladores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 15px;
+    margin: 60px 0;
+}
+
+.lista-desarralladores h3 {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.lista-desarralladores img {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+@media (max-width: 1041px) {
+    .main-section {
+        padding: 40px 0;
+    }
+
+    .contact-page {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 40px;
+    }
+
+    .product-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 8px 8px 10px #5353536e;
+    }
+
+    .product-section img {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .product-section .detail-section {
+        width: 100%;
+        margin-top: 20px;
+        border: none;
+        min-height: 600px;
+    }
+
+    .detail-section h1 {
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 765px) {
+    .main-card{
+        flex-direction: column-reverse;
+    }
+
+    .main-card img {
+        width: 100%;
+    }
+
+    .main-card div {
+        margin: 50px 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 585px) {
+    iframe {
+        width: 100%;
+        height: 300px;
+    }
+
+    .price {
+        text-align: center;
+    }
+
+    .info-page img {
+        width: 100%;
+        height: 300px;
+    }
+
+    .product-section {
+        padding: 5px;
+    }
+
+    .product-section .detail-section {
+        margin-top: 0;
+        padding: 10px;
+    }
+}
+
+.logo-login {
+    width: 80px;    
+}
