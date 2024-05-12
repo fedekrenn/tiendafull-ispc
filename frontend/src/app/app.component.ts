@@ -9,12 +9,12 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { RegistroComponent } from './components/registro/registro.component';
 import { CustomerDashboardComponent } from './components/customer-dashboard/customer-dashboard.component';
 import { ContactPageComponent } from './components/contact-page/contact-page.component';
+import { AcercaDeNosotrosComponent } from './components/acerca-de-nosotros/acerca-de-nosotros.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
+  imports: [RouterOutlet,
     HeaderComponent,
     FooterComponent,
     GaleriaProductosComponent,
@@ -24,7 +24,7 @@ import { ContactPageComponent } from './components/contact-page/contact-page.com
     RegistroComponent,
     CustomerDashboardComponent,
     ContactPageComponent,
-  ],
+    AcercaDeNosotrosComponent],
   templateUrl: './app.component.html',
   styles: '',
 })
