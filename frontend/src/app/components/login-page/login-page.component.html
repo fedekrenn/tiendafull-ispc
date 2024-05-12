@@ -8,17 +8,48 @@
           <div class="text-center">
             <h3 class="fw-bold">Bienvenido/a <span id="nombre"></span></h3>
           </div>
+          
+ 
           <!-- Login -->
           <form [formGroup]="form" (ngSubmit)="validarUsuario()">
             <div class="mb-4">
               <label for="email" class="form-label"
                 >Correo electrónico
               </label>
-              <input type="email" class="form-control" formControlName="email" required>
+              <input type="email" class="form-control" formControlName="email">
+              @if (Email?.errors && Email?.touched) {
+                @if (Email?.hasError('required'))
+                {
+                  <p class="text-danger">
+                  El email es requerido.
+                  </p>
+                }
+                @else if (Email?.hasError('email'))
+                {
+                 <p class="text-danger">
+                 El formato del email debe ser válido.
+                  </p>
+                }
+              }
             </div>
             <div class="mb-4">
               <label for="password" class="form-label">Contraseña </label>
-              <input type="password" class="form-control" formControlName="password" required>
+              <input type="password" class="form-control" formControlName="password">
+              @if(Password?.errors && Password?.touched)
+              {
+                @if(Password?.hasError('required'))
+                {
+                  <p class="text-danger">
+                    El Password es requerido.
+                  </p>
+                }
+                @else if (Password?.hasError('minlength') )
+                {
+                  <p class="text-danger">
+                  El Password requiere como mínimo 8 caracteres.
+                  </p>
+                }
+              }
             </div>
             <div class="mb-4">
               <input type="checkbox" name="recordarme" class="form-check-input">
@@ -32,7 +63,7 @@
             <div class="my-3">
               <span
                 >Si no tienes cuenta,
-                <a href="./registro.html"> Regístrate</a></span
+                <a routerLink="/Registro"> Regístrate</a></span
               >
               <br>
               <span
@@ -46,4 +77,3 @@
       </div>
     </div>
   </main>
- 
