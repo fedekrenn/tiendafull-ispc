@@ -9,7 +9,6 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { RegistroComponent } from './components/registro/registro.component';
 import { CustomerDashboardComponent } from './components/customer-dashboard/customer-dashboard.component';
 import { ContactPageComponent } from './components/contact-page/contact-page.component';
-import { ResetPasswordPageComponent } from './components/reset-password-page/reset-password-page.component';
 
 @Component({
   selector: 'app-root',
