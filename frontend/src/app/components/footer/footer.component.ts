@@ -9,10 +9,10 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
   standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
 export class FooterComponent {
- faFacebook=faFacebook
- faTwitter=faTwitter
- faInstagram =faInstagram 
+  faFacebook = faFacebook;
+  faTwitter = faTwitter;
+  faInstagram = faInstagram;
 }

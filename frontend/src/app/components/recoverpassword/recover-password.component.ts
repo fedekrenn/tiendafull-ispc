@@ -1,26 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recover-password',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './recover-password.component.html',
-  styleUrls: ['./recover-password.component.css']
+  styleUrls: ['./recover-password.component.css'],
 })
-export class RecoverPasswordComponent implements OnInit {
+export class RecoverPasswordComponent {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
   }
-
-  ngOnInit(): void {}
 
   recoverPassword() {
     if (this.form.valid) {
       const email = this.form.get('email')?.value;
-      // Lógica para recuperar la contraseña
       console.log(`Recuperar contraseña para el correo electrónico: ${email}`);
     }
   }

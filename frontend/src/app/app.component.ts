@@ -14,10 +14,18 @@ import { AcercaDeNosotrosComponent } from './components/acerca-de-nosotros/acerc
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent, LoginPageComponent, ProductoComponent, LandingPageComponent, RegistroComponent,CustomerDashboardComponent, ContactPageComponent, AcercaDeNosotrosComponent],
+  imports: [RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    GaleriaProductosComponent,
+    LoginPageComponent,
+    ProductoComponent,
+    LandingPageComponent,
+    RegistroComponent,
+    CustomerDashboardComponent,
+    ContactPageComponent,
+    AcercaDeNosotrosComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styles: '',
 })
-export class AppComponent {
-
-}
+export class AppComponent {}
