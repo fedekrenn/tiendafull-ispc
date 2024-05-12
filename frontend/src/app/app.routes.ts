@@ -11,6 +11,8 @@ import { RecoverPasswordComponent } from './components/recoverpassword/recover-p
 import { DetailsComponent } from './components/customer-dashboard/details/details.component';
 import { HistorialComponent } from './components/customer-dashboard/historial/historial.component';
 import { EnvioComponent } from './components/customer-dashboard/envio/envio.component';
+import { AcercaDeNosotrosComponent } from './components/acerca-de-nosotros/acerca-de-nosotros.component';
+
 export const routes: Routes = [
   { path: 'Home', component: LandingPageComponent },
   { path: 'Productos', component: GaleriaProductosComponent },
@@ -24,6 +26,7 @@ export const routes: Routes = [
   { path: 'Registro', component: RegistroComponent },
   { path: 'RecoverPass', component: RecoverPasswordComponent },
   { path: 'Contact', component: ContactPageComponent },
+  { path: 'Nosotros', component: AcercaDeNosotrosComponent },
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: '**', component: Pagina404Component },
 ];
