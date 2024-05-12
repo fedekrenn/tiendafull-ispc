@@ -1,0 +1,23 @@
+.card-body {
+    padding: 20px;
+  }
+  
+  .card-body table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .card-body th, .card-body td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .card-body th {
+    background-color: #f2f2f2;
+  }
+  
+  .card-body tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
