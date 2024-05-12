@@ -7,8 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './galeria-productos.component.html',
-  styleUrl: './galeria-productos.component.css'
+  styleUrl: './galeria-productos.component.css',
 })
-export class GaleriaProductosComponent {
-
-}
+export class GaleriaProductosComponent {}

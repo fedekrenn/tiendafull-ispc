@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgSwitch, NgSwitchDefault, NgSwitchCase],
   templateUrl: './producto.component.html',
-  styleUrl: './producto.component.css'
+  styleUrl: './producto.component.css',
 })
 export class ProductoComponent {
   @Input() id!: String;

@@ -13,10 +13,19 @@ import { ContactPageComponent } from './components/contact-page/contact-page.com
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, GaleriaProductosComponent,LoginPageComponent, ProductoComponent, LandingPageComponent, RegistroComponent,CustomerDashboardComponent, ContactPageComponent ], 
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    GaleriaProductosComponent,
+    LoginPageComponent,
+    ProductoComponent,
+    LandingPageComponent,
+    RegistroComponent,
+    CustomerDashboardComponent,
+    ContactPageComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styles: '',
 })
-export class AppComponent {
-
-}
+export class AppComponent {}
