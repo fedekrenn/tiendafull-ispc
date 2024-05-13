@@ -26,7 +26,7 @@ export class RecoverPasswordComponent {
   recoverPassword() {
     if (this.form.valid) {
       const email = this.form.get('email')?.value;
-      console.log(`Recuperar contraseña para el correo electrónico: ${email}`);
+      alert('Se ha enviado un correo a ' + email);
     }
   }
 }

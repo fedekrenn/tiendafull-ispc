@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +20,7 @@ export class LoginPageComponent {
   usuarioAdmin: string = 'admin@admin.com';
   passAdmin: string = 'admin';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email], []],
       password: ['', [Validators.required], []],
@@ -42,7 +42,7 @@ export class LoginPageComponent {
         if (this.form.value.email == this.usuarioAdmin) {
           if (this.form.value.password == this.passAdmin) {
             alert('Bienvenido ' + this.form.value.email);
-            window.location.href = '../index.html';
+            this.router.navigate(['/']);
           } else {
             alert('Contraseña incorrecta');
           }

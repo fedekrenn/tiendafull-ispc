@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './envio.component.html',
-  styleUrl: './envio.component.css'
+  styleUrl: './envio.component.css',
 })
-export class EnvioComponent {
-
-}
+export class EnvioComponent {}

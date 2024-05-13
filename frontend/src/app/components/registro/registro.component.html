@@ -12,7 +12,11 @@
         <h3 class="fw-bold">Registro de nuevo usuario</h3>
       </div>
 
-      <form [formGroup]="profileForm" class="register-form" (ngSubmit)="onEnviar($event)">
+      <form
+        [formGroup]="profileForm"
+        class="register-form"
+        (ngSubmit)="onEnviar($event)"
+      >
         <label for="nombre" class="form-label"
           >Nombre:
           <input
@@ -192,7 +196,8 @@
             </div>
           </div>
         </label>
-        <div *ngIf="profileForm && profileForm.errors?.['notEqualPassword'] &&
+        <div
+          *ngIf="profileForm && profileForm.errors?.['notEqualPassword'] &&
           (profileForm.touched || profileForm.dirty)"
           class="alert alert-danger"
         >
