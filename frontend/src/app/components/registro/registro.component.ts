@@ -6,7 +6,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
+  ValidatorFn,
+  ValidationErrors,
+  AbstractControl
 } from '@angular/forms';
+
 
 @Component({
   selector: 'app-registro',
@@ -48,7 +52,7 @@ export class RegistroComponent {
         Validators.compose([Validators.minLength(6), Validators.maxLength(20)]),
       ],
     ],
-  });
+  }, { validators: this.notEqualPasswordValidator() });
 
   get nombre() {
     return this.profileForm.get('nombre');
@@ -79,4 +83,25 @@ export class RegistroComponent {
   }
 
   constructor(private formBuilder: FormBuilder) {}
+  
+  notEqualPasswordValidator(): ValidatorFn {
+    return (control:AbstractControl) : ValidationErrors | null => {
+      const pass1 = control.get('password1');
+      const pass2 = control.get('password2');
+
+      return pass1 && pass2 && pass1.value !== pass2.value 
+        ? { notEqualPassword: true } 
+        : null;
+    };
+  }
+  
+  onEnviar(event: Event){
+    event.preventDefault;
+    if (this.profileForm.valid){
+      alert ("Los datos fueron enviados")
+    }
+    else{
+      this.profileForm.markAllAsTouched();
+    }
+  }
 }
