@@ -1,0 +1,18 @@
+<main class="container">
+  <h1>Dashboard</h1>
+  <div class="btn-group" role="group">
+    <button class="btn btn-primary" routerLink="/Dashboard/Detalles">
+      Mostrar Detalles
+    </button>
+    <button class="btn btn-primary" routerLink="/Dashboard/Envio">
+      Mostrar Envío
+    </button>
+    <button class="btn btn-primary" routerLink="/Dashboard/Historial">
+      Mostrar Historial
+    </button>
+  </div>
+  <div class="router-container">
+    <p>Detalles:</p>
+    <router-outlet></router-outlet>
+  </div>
+</main>

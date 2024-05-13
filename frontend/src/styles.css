@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #4b93d4;
+}
+
+h1 {
+  text-align: center;
+  margin: 60px 0 !important;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+img {
+  width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+body {
+  font-family: "Roboto", sans-serif !important;
+  background-color: #e4e4e4 !important;
+}
+
+main {
+  padding: 10px 20px;
+  min-height: 100vh;
+}
