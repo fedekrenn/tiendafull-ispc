@@ -8,10 +8,9 @@ describe('EnvioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EnvioComponent]
-    })
-    .compileComponents();
-    
+      imports: [EnvioComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EnvioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

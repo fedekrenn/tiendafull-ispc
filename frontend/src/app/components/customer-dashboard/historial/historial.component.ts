@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './historial.component.html',
-  styleUrl: './historial.component.css'
+  styleUrl: './historial.component.css',
 })
-export class HistorialComponent {
-
-}
+export class HistorialComponent {}
