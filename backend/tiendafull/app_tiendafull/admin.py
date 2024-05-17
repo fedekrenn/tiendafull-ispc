@@ -1,17 +1,22 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth import get_user_model
 from .models import *
 
 # Register your models here.
-admin.site.register(TipoRol)
-admin.site.register(Usuario)
-admin.site.register(TipoModoPago)
-admin.site.register(Compra)
-admin.site.register(TipoColor)
-admin.site.register(TipoEstilo)
-admin.site.register(TipoMarca)
-admin.site.register(TipoMaterial)
-admin.site.register(TipoRodado)
-admin.site.register(Producto)
-admin.site.register(DetalleCompra)
-admin.site.register(TipoEstadoEntrega)
-admin.site.register(Entrega)
+# admin.site.register(CustomUser)
+admin.site.register(PaymentModeType)
+admin.site.register(Purchase)
+admin.site.register(ColorType)
+admin.site.register(StyleType)
+admin.site.register(BrandType)
+admin.site.register(MaterialType)
+admin.site.register(WheelSizeType)
+admin.site.register(Product)
+admin.site.register(PurchaseDetail)
+admin.site.register(DeliveryStatusType)
+admin.site.register(Delivery)
+
+@admin.register(get_user_model())
+class UserAdmin(UserAdmin):
+    pass

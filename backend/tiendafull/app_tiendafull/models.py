@@ -1,33 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-class TipoRol(models.Model):
-    id_rol = models.AutoField(primary_key=True)
-    descripcion = models.CharField(max_length=45)
-
-    class Meta:
-        db_table = "tipo_rol"
-        verbose_name = "TipoRol"
-        verbose_name_plural = "TipoRoles"
-
-    def __unicode__(self):
-        return self.descripcion
-
-    def __str__(self):
-        return self.descripcion
-
-
-class Usuario(models.Model):
-    email = models.EmailField(primary_key=True)
+class CustomUser(AbstractUser):
+    email = models.EmailField(max_length=150, unique=True)
     nro_documento = models.IntegerField()
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    clave = models.CharField(max_length=20)
     telefono = models.CharField(max_length=45, null=True, blank=True)
-    id_rol = models.ForeignKey(
-        TipoRol, on_delete=models.SET_NULL, null=True, blank=True
-    )
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", "password", "nro_documento"]
 
     class Meta:
         db_table = "usuario"
@@ -41,14 +22,13 @@ class Usuario(models.Model):
         return self.email
 
 
-class TipoModoPago(models.Model):
-    id_modo_pago = models.AutoField(primary_key=True)
+class PaymentModeType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
         db_table = "tipo_modo_pago"
         verbose_name = "TipoModoPago"
-        verbose_name_plural = "TipoModoPagos"
+        verbose_name_plural = "TiposModoPago"
 
     def __unicode__(self):
         return self.descripcion
@@ -57,14 +37,13 @@ class TipoModoPago(models.Model):
         return self.descripcion
 
 
-class Compra(models.Model):
-    id_compra = models.AutoField(primary_key=True)
+class Purchase(models.Model):
     nro_factura = models.IntegerField()
     fecha = models.DateField()
-    nro_cuenta = models.IntegerField()
-    total = models.FloatField()
-    email = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    id_modo_pago = models.ForeignKey(TipoModoPago, on_delete=models.CASCADE)
+    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    id_modo_pago = models.ForeignKey(
+        PaymentModeType, on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     class Meta:
         db_table = "compra"
@@ -72,20 +51,19 @@ class Compra(models.Model):
         verbose_name_plural = "Compras"
 
     def __unicode__(self):
-        return self.id_compra
+        return self.nro_factura
 
     def __str__(self):
-        return self.id_compra
+        return f"{self.nro_factura} - {self.fecha}"
 
 
-class TipoColor(models.Model):
-    id_color = models.AutoField(primary_key=True)
+class ColorType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
         db_table = "tipo_color"
         verbose_name = "TipoColor"
-        verbose_name_plural = "TipoColores"
+        verbose_name_plural = "TiposColor"
 
     def __unicode__(self):
         return self.descripcion
@@ -94,14 +72,13 @@ class TipoColor(models.Model):
         return self.descripcion
 
 
-class TipoEstilo(models.Model):
-    id_estilo = models.AutoField(primary_key=True)
+class StyleType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
         db_table = "tipo_estilo"
         verbose_name = "TipoEstilo"
-        verbose_name_plural = "TipoEstilos"
+        verbose_name_plural = "TiposEstilo"
 
     def __unicode__(self):
         return self.descripcion
@@ -110,8 +87,7 @@ class TipoEstilo(models.Model):
         return self.descripcion
 
 
-class TipoMarca(models.Model):
-    id_marca = models.AutoField(primary_key=True)
+class BrandType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
@@ -126,14 +102,13 @@ class TipoMarca(models.Model):
         return self.descripcion
 
 
-class TipoMaterial(models.Model):
-    id_material = models.AutoField(primary_key=True)
+class MaterialType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
         db_table = "tipo_material"
         verbose_name = "TipoMaterial"
-        verbose_name_plural = "TipoMateriales"
+        verbose_name_plural = "TiposMateriales"
 
     def __unicode__(self):
         return self.descripcion
@@ -142,14 +117,13 @@ class TipoMaterial(models.Model):
         return self.descripcion
 
 
-class TipoRodado(models.Model):
-    id_rodado = models.AutoField(primary_key=True)
+class WheelSizeType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
         db_table = "tipo_rodado"
         verbose_name = "TipoRodado"
-        verbose_name_plural = "TipoRodados"
+        verbose_name_plural = "TiposRodado"
 
     def __unicode__(self):
         return self.descripcion
@@ -158,27 +132,26 @@ class TipoRodado(models.Model):
         return self.descripcion
 
 
-class Producto(models.Model):
-    id_producto = models.AutoField(primary_key=True)
+class Product(models.Model):
     modelo = models.CharField(max_length=45)
     precio = models.FloatField()
     stock = models.IntegerField()
     imagen = models.CharField(max_length=200, null=True, blank=True)
     detalle = models.TextField(max_length=500, null=True, blank=True)
     id_marca = models.ForeignKey(
-        TipoMarca, on_delete=models.SET_NULL, null=True, blank=True
+        BrandType, on_delete=models.SET_NULL, null=True, blank=True
     )
     id_rodado = models.ForeignKey(
-        TipoRodado, on_delete=models.SET_NULL, null=True, blank=True
+        WheelSizeType, on_delete=models.SET_NULL, null=True, blank=True
     )
     id_estilo = models.ForeignKey(
-        TipoEstilo, on_delete=models.SET_NULL, null=True, blank=True
+        StyleType, on_delete=models.SET_NULL, null=True, blank=True
     )
     id_material = models.ForeignKey(
-        TipoMaterial, on_delete=models.SET_NULL, null=True, blank=True
+        MaterialType, on_delete=models.SET_NULL, null=True, blank=True
     )
     id_color = models.ForeignKey(
-        TipoColor, on_delete=models.SET_NULL, null=True, blank=True
+        ColorType, on_delete=models.SET_NULL, null=True, blank=True
     )
 
     class Meta:
@@ -193,28 +166,24 @@ class Producto(models.Model):
         return self.modelo
 
 
-class DetalleCompra(models.Model):
-    id_compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    id_detalle_compra = models.IntegerField()
-    cantidad = models.IntegerField()
-    precio_unitario = models.FloatField()
-    importe = models.FloatField()
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+class PurchaseDetail(models.Model):
+    cantidad = models.PositiveIntegerField()
+    compra = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "detalle_compra"
         verbose_name = "DetalleCompra"
-        verbose_name_plural = "DetalleCompras"
+        verbose_name_plural = "DetallesCompra"
 
     def __unicode__(self):
-        return self.id_detalle_compra
+        return self.cantidad
 
     def __str__(self):
-        return self.id_detalle_compra
+        return self.cantidad
 
 
-class TipoEstadoEntrega(models.Model):
-    id_estado_entrega = models.AutoField(primary_key=True)
+class DeliveryStatusType(models.Model):
     descripcion = models.CharField(max_length=45)
 
     class Meta:
@@ -229,16 +198,14 @@ class TipoEstadoEntrega(models.Model):
         return self.descripcion
 
 
-class Entrega(models.Model):
-    id_entrega = models.AutoField(primary_key=True)
+class Delivery(models.Model):
+    compra = models.OneToOneField(Purchase, on_delete=models.CASCADE)
     nro_seguimiento = models.CharField(max_length=45)
-    domicilio_entrega = models.CharField(max_length=45)
-    observaciones = models.CharField(max_length=150, null=True, blank=True)
-    id_compra = models.ForeignKey(
-        Compra, on_delete=models.SET_NULL, null=True, blank=True
-    )
+    domicilio_entrega = models.CharField(max_length=200)
+    fecha_estimada = models.DateField()
+    fecha_entrega = models.DateField(null=True, blank=True)
     id_estado_entrega = models.ForeignKey(
-        TipoEstadoEntrega, on_delete=models.SET_NULL, null=True, blank=True
+        DeliveryStatusType, on_delete=models.SET_NULL, null=True, blank=True
     )
 
     class Meta:
