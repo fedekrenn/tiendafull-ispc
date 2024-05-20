@@ -5,18 +5,15 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length=150, unique=True)
-    nro_documento = models.IntegerField()
+    nro_documento = models.IntegerField(null=True, blank=True)
     telefono = models.CharField(max_length=45, null=True, blank=True)
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "password", "nro_documento"]
+    REQUIRED_FIELDS = ["username", "password"]
 
     class Meta:
         db_table = "usuario"
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
-
-    def __unicode__(self):
-        return self.email
 
     def __str__(self):
         return self.email
@@ -30,31 +27,8 @@ class PaymentModeType(models.Model):
         verbose_name = "TipoModoPago"
         verbose_name_plural = "TiposModoPago"
 
-    def __unicode__(self):
-        return self.descripcion
-
     def __str__(self):
         return self.descripcion
-
-
-class Purchase(models.Model):
-    nro_factura = models.IntegerField()
-    fecha = models.DateField()
-    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    id_modo_pago = models.ForeignKey(
-        PaymentModeType, on_delete=models.SET_NULL, null=True, blank=True
-    )
-
-    class Meta:
-        db_table = "compra"
-        verbose_name = "Compra"
-        verbose_name_plural = "Compras"
-
-    def __unicode__(self):
-        return self.nro_factura
-
-    def __str__(self):
-        return f"{self.nro_factura} - {self.fecha}"
 
 
 class ColorType(models.Model):
@@ -64,9 +38,6 @@ class ColorType(models.Model):
         db_table = "tipo_color"
         verbose_name = "TipoColor"
         verbose_name_plural = "TiposColor"
-
-    def __unicode__(self):
-        return self.descripcion
 
     def __str__(self):
         return self.descripcion
@@ -80,9 +51,6 @@ class StyleType(models.Model):
         verbose_name = "TipoEstilo"
         verbose_name_plural = "TiposEstilo"
 
-    def __unicode__(self):
-        return self.descripcion
-
     def __str__(self):
         return self.descripcion
 
@@ -94,9 +62,6 @@ class BrandType(models.Model):
         db_table = "tipo_marca"
         verbose_name = "TipoMarca"
         verbose_name_plural = "TipoMarcas"
-
-    def __unicode__(self):
-        return self.descripcion
 
     def __str__(self):
         return self.descripcion
@@ -110,9 +75,6 @@ class MaterialType(models.Model):
         verbose_name = "TipoMaterial"
         verbose_name_plural = "TiposMateriales"
 
-    def __unicode__(self):
-        return self.descripcion
-
     def __str__(self):
         return self.descripcion
 
@@ -124,9 +86,6 @@ class WheelSizeType(models.Model):
         db_table = "tipo_rodado"
         verbose_name = "TipoRodado"
         verbose_name_plural = "TiposRodado"
-
-    def __unicode__(self):
-        return self.descripcion
 
     def __str__(self):
         return self.descripcion
@@ -159,11 +118,52 @@ class Product(models.Model):
         verbose_name = "Producto"
         verbose_name_plural = "Productos"
 
-    def __unicode__(self):
-        return self.modelo
-
     def __str__(self):
         return self.modelo
+
+
+class Cart(models.Model):
+    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    fecha = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = "carrito"
+        verbose_name = "Carrito"
+        verbose_name_plural = "Carritos"
+
+    def __str__(self):
+        return f"{self.email} - {self.fecha}"
+
+
+class CartDetail(models.Model):
+    cantidad = models.PositiveIntegerField()
+    carrito = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "detalle_carrito"
+        verbose_name = "DetalleCarrito"
+        verbose_name_plural = "DetallesCarrito"
+
+    def __str__(self):
+        return f"Carrito id: {self.carrito.id} - Producto: {self.producto.modelo} - Cantidad: {self.cantidad}"
+
+
+class Purchase(models.Model):
+    nro_factura = models.IntegerField()
+    fecha = models.DateField(auto_now_add=True)
+    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    id_modo_pago = models.ForeignKey(
+        PaymentModeType, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    class Meta:
+        db_table = "compra"
+        verbose_name = "Compra"
+        verbose_name_plural = "Compras"
+
+    def __str__(self):
+        return f"{self.nro_factura} - {self.fecha}"
 
 
 class PurchaseDetail(models.Model):
@@ -176,11 +176,8 @@ class PurchaseDetail(models.Model):
         verbose_name = "DetalleCompra"
         verbose_name_plural = "DetallesCompra"
 
-    def __unicode__(self):
-        return self.cantidad
-
     def __str__(self):
-        return self.cantidad
+        return f"Compra id: {self.compra.id} - Producto: {self.producto.modelo} - Cantidad: {self.cantidad}"
 
 
 class DeliveryStatusType(models.Model):
@@ -190,9 +187,6 @@ class DeliveryStatusType(models.Model):
         db_table = "tipo_estado_entrega"
         verbose_name = "TipoEstadoEntrega"
         verbose_name_plural = "TipoEstadoEntregas"
-
-    def __unicode__(self):
-        return self.descripcion
 
     def __str__(self):
         return self.descripcion
@@ -213,8 +207,5 @@ class Delivery(models.Model):
         verbose_name = "Entrega"
         verbose_name_plural = "Entregas"
 
-    def __unicode__(self):
-        return self.nro_seguimiento
-
     def __str__(self):
-        return self.nro_seguimiento
+        return f"Seguimiento: {self.nro_seguimiento}"
