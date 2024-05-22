@@ -170,6 +170,7 @@ class PurchaseDetail(models.Model):
     cantidad = models.PositiveIntegerField()
     compra = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     producto = models.ForeignKey(Product, on_delete=models.CASCADE)
+    precio_compra = models.FloatField() # Precio del producto al momento de la compra
 
     class Meta:
         db_table = "detalle_compra"
