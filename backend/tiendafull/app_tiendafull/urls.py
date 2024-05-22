@@ -1,7 +1,13 @@
 from django.urls import path, include
-from .views import LoginView, LogoutView
+from app_tiendafull import views
+from rest_framework import routers
+
+router=routers.DefaultRouter()
 
 urlpatterns = [
-    path("auth/login/", LoginView.as_view(), name="auth_login"),
-    path("auth/logout/", LogoutView.as_view(), name="auth_logout"),
+    path('', include(router.urls) ),
+    path('login/', views.LoginView.as_view(), name="login"),
+    path('logout/', views.CustomLogoutView.as_view(), name='custom_logout'),
+    path('logoutall/', views.CustomLogoutAllView.as_view(), name='custom_logoutall'),
+    path('registro/', views.RegistroView.as_view(), name="registro"),
 ]
