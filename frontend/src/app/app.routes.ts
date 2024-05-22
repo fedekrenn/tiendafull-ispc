@@ -14,19 +14,19 @@ import { EnvioComponent } from './components/customer-dashboard/envio/envio.comp
 import { AboutUsComponent } from './components/about-us/about-us.component';
 
 export const routes: Routes = [
-  { path: 'Home', component: LandingPageComponent },
-  { path: 'Productos', component: ProductsComponent },
-  { path: 'Productos/:id', component: ProductDetailComponent },
-  { path: 'Login', component: LoginPageComponent },
-  { path: 'Dashboard', component: CustomerDashboardComponent, children:[
-    { path: 'Detalles', component: DetailsComponent },
-    { path: 'Historial', component: HistorialComponent },
-    { path: 'Envio', component: EnvioComponent },
+  { path: 'inicio', component: LandingPageComponent },
+  { path: 'productos', component: ProductsComponent },
+  { path: 'productos/:id', component: ProductDetailComponent },
+  { path: 'inicio-sesion', component: LoginPageComponent },
+  { path: 'panel-de-control', component: CustomerDashboardComponent, children:[
+    { path: 'detalles', component: DetailsComponent },
+    { path: 'historial', component: HistorialComponent },
+    { path: 'envio', component: EnvioComponent },
   ] },
-  { path: 'Registro', component: RegisterComponent },
-  { path: 'RecoverPass', component: RecoverPasswordComponent },
-  { path: 'Contact', component: ContactPageComponent },
-  { path: 'Nosotros', component: AboutUsComponent },
-  { path: '', redirectTo: '/Home', pathMatch: 'full' },
+  { path: 'registro', component: RegisterComponent },
+  { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
+  { path: 'contacto', component: ContactPageComponent },
+  { path: 'acerca-de-nosotros', component: AboutUsComponent },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent },
 ];
