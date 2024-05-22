@@ -5,9 +5,9 @@ import { Component, Input } from '@angular/core';
   selector: 'app-producto',
   standalone: true,
   imports: [NgSwitch, NgSwitchDefault, NgSwitchCase],
-  templateUrl: './producto.component.html',
-  styleUrl: './producto.component.css',
+  templateUrl: './product-detail.component.html',
+  styleUrl: './product-detail.component.css',
 })
-export class ProductoComponent {
+export class ProductDetailComponent {
   @Input() id!: String;
 }

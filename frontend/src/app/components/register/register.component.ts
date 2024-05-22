@@ -12,13 +12,13 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-register',
   standalone: true,
   imports: [NgIf, RouterLink, ReactiveFormsModule],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
 })
-export class RegistroComponent {
+export class RegisterComponent {
   profileForm = this.formBuilder.group(
     {
       nombre: [

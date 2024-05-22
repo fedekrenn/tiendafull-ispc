@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-pagina-404',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './pagina-404.component.html',
-  styleUrl: './pagina-404.component.css',
+  templateUrl: './not-found-page.component.html',
+  styleUrl: './not-found-page.component.css',
 })
-export class Pagina404Component {}
+export class NotFoundPageComponent {}

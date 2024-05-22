@@ -3,13 +3,11 @@
   <div class="main-section">
     @for (bike of bikes; track $index) {
       <div class="item-card">
-        <img [src]="'../../../assets/' + bike. imagen" alt="Bicicleta Raleigh" />
+        <img [src]="'../../../assets/' + bike.imagen" alt="Bicicleta Raleigh" />
         <h2>{{ bike.nombre}}</h2>
         <h3>{{ bike.precio}}</h3>
-        <a class="item-card-btn" routerLink="/Detalle/1">Ver detalle</a>
+        <a class="item-card-btn" [routerLink]="'/Productos/' + bike.id" >Ver detalle</a>
       </div>
     }
-
-   
   </div>
 </main>
