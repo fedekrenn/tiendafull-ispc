@@ -1,4 +1,3 @@
-
 from django.contrib.auth import login
 from rest_framework import status, generics, permissions
 from knox.models import AuthToken

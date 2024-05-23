@@ -4,6 +4,7 @@ from rest_framework import routers
 from knox import views as knox_views
 router=routers.DefaultRouter()
 
+
 urlpatterns = [
     path('', include(router.urls) ),
     path('login/', views.LoginView.as_view(), name="login"),
