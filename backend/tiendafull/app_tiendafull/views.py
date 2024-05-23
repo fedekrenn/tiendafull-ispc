@@ -6,8 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
-from knox.auth import TokenAuthentication
+from knox.views import LogoutView as KnoxLogoutView
+from knox.views import LogoutAllView as KnoxLogoutAllView
 from app_tiendafull.serializers import RegisterSerializer, UserSerializer
+from rest_framework.permissions import IsAuthenticated 
+
 
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
@@ -32,22 +35,17 @@ class RegistroView(generics.GenericAPIView):
             "token": AuthToken.objects.create(user)[1]
         })
 
-class CustomLogoutView(APIView):
-    authentication_classes = [TokenAuthentication]
+class CustomLogoutView(KnoxLogoutView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
-        user = request.user
-        request.auth.delete()
-        return Response({"message": f"Logout exitoso, {user.email}"}, status=status.HTTP_200_OK)
+        response = super().post(request, format=None)
+        return Response({'success': 'Logout successful'}, status=response.status.HTTP_204_NO_CONTENT)
 
-
-class CustomLogoutAllView(APIView):
-    authentication_classes = [TokenAuthentication]
+class CustomLogoutAllView(KnoxLogoutAllView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
-        # Borrar todos los tokens de autenticación del usuario
-        user = request.user
-        tokens = AuthToken.objects.filter(user=user)
-        for token in tokens:
-            token.delete()
-        return Response({"message": f"Logout de todas las sesiones exitoso {user.email}"}, status=status.HTTP_200_OK)
+        response = super().post(request, format=None)
+        return Response({'success': 'Logged out from all devices'}, status=response.HTTP_200_OK)
+    
