@@ -97,19 +97,19 @@ class Product(models.Model):
     stock = models.IntegerField()
     imagen = models.CharField(max_length=200, null=True, blank=True)
     detalle = models.TextField(max_length=500, null=True, blank=True)
-    id_marca = models.ForeignKey(
+    marca = models.ForeignKey(
         BrandType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    id_rodado = models.ForeignKey(
+    rodado = models.ForeignKey(
         WheelSizeType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    id_estilo = models.ForeignKey(
+    estilo = models.ForeignKey(
         StyleType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    id_material = models.ForeignKey(
+    material = models.ForeignKey(
         MaterialType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    id_color = models.ForeignKey(
+    color = models.ForeignKey(
         ColorType, on_delete=models.SET_NULL, null=True, blank=True
     )
 
@@ -153,7 +153,7 @@ class Purchase(models.Model):
     nro_factura = models.IntegerField()
     fecha = models.DateField(auto_now_add=True)
     email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    id_modo_pago = models.ForeignKey(
+    modo_pago = models.ForeignKey(
         PaymentModeType, on_delete=models.SET_NULL, null=True, blank=True
     )
 
@@ -199,7 +199,7 @@ class Delivery(models.Model):
     domicilio_entrega = models.CharField(max_length=200)
     fecha_estimada = models.DateField()
     fecha_entrega = models.DateField(null=True, blank=True)
-    id_estado_entrega = models.ForeignKey(
+    estado_entrega = models.ForeignKey(
         DeliveryStatusType, on_delete=models.SET_NULL, null=True, blank=True
     )
 

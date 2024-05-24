@@ -60,11 +60,11 @@ class ColorTypeSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    id_marca = serializers.SerializerMethodField()
-    id_rodado = serializers.SerializerMethodField()
-    id_estilo = serializers.SerializerMethodField()
-    id_material = serializers.SerializerMethodField()
-    id_color = serializers.SerializerMethodField()
+    marca = serializers.SerializerMethodField()
+    rodado = serializers.SerializerMethodField()
+    estilo = serializers.SerializerMethodField()
+    material = serializers.SerializerMethodField()
+    color = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -75,24 +75,24 @@ class ProductSerializer(serializers.ModelSerializer):
             "stock",
             "imagen",
             "detalle",
-            "id_marca",
-            "id_rodado",
-            "id_estilo",
-            "id_material",
-            "id_color",
+            "marca",
+            "rodado",
+            "estilo",
+            "material",
+            "color",
         ]
 
-    def get_id_marca(self, obj):
-        return obj.id_marca.descripcion if obj.id_marca else None
+    def get_marca(self, obj):
+        return obj.marca.descripcion if obj.marca else None
 
-    def get_id_rodado(self, obj):
-        return obj.id_rodado.descripcion if obj.id_rodado else None
+    def get_rodado(self, obj):
+        return obj.rodado.descripcion if obj.rodado else None
 
-    def get_id_estilo(self, obj):
-        return obj.id_estilo.descripcion if obj.id_estilo else None
+    def get_estilo(self, obj):
+        return obj.estilo.descripcion if obj.estilo else None
 
-    def get_id_material(self, obj):
-        return obj.id_material.descripcion if obj.id_material else None
+    def get_material(self, obj):
+        return obj.material.descripcion if obj.material else None
 
-    def get_id_color(self, obj):
-        return obj.id_color.descripcion if obj.id_color else None
+    def get_color(self, obj):
+        return obj.color.descripcion if obj.color else None
