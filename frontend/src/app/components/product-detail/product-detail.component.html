@@ -1,22 +1,23 @@
-<main [ngSwitch]="id">
-  <section *ngSwitchCase="'1'" class="product-section">
-    <img src="../../../assets/raleigh-1.jpg" alt="Bicicleta Raleigh" />
+<main>
+  <section class="product-section">
+    <img [src]="bike.imagen" [alt]="bike.nombre"/>
     <div class="detail-section">
-      <h1>Raleigh M2.0</h1>
-      <h2 class="price">$200.000</h2>
+      <h1>{{ bike.nombre }}</h1>
+      <h2 class="price">{{ bike.precio | currency : "$" : "symbol" : "1.2-2" }}</h2>
       <div>
         <h2>Detalles</h2>
         <ul>
-          <li>Material: Aluminio</li>
-          <li>Marca: Raleigh</li>
-          <li>Estilo: Mountain Bike</li>
-          <li>Color: Negro/Fucsia</li>
-          <li>Rodado: 29</li>
+          <li>Material: Aluminio <!-- {{ bike.material }} --></li>
+          <li>Marca: Raleigh <!-- {{ bike.marca }} --></li>
+          <li>Estilo: Mountain Bike <!-- {{ bike.estilo }} --></li>
+          <li>Color: Negro/Fucsia <!-- {{ bike.color }} --></li>
+          <li>Rodado: 29 <!-- {{ bike.rodado }} --></li>
         </ul>
       </div>
       <div>
         <h2>Descripción</h2>
         <p>
+          <!-- {{ bike.material }} -->
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
           consequuntur dolores aliquid, fuga, autem accusantium sit vero rem cum
           animi neque necessitatibus iure! Iusto, corporis ut sapiente tenetur
@@ -25,60 +26,4 @@
       </div>
     </div>
   </section>
-  <section *ngSwitchCase="'2'" class="product-section">
-    <img
-      src="../../../assets/trinx-gravel-1.jpg"
-      alt="Bicicleta Trinx Gravel"
-    />
-    <div class="detail-section">
-      <h1>Trinx Gravel</h1>
-      <h2 class="price">$350.000</h2>
-      <div>
-        <h2>Detalles</h2>
-        <ul>
-          <li>Material: Carbono</li>
-          <li>Marca: Trinx</li>
-          <li>Estilo: Rutera</li>
-          <li>Color: Gris/Rojo</li>
-          <li>Rodado: 29</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Descripción</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
-          consequuntur dolores aliquid, fuga, autem accusantium sit vero rem cum
-          animi neque necessitatibus iure! Iusto, corporis ut sapiente tenetur
-          expedita accusamus? Sunt quia necessitatibus vel fugiat
-        </p>
-      </div>
-    </div>
-  </section>
-  <section *ngSwitchCase="'3'" class="product-section">
-    <img src="../../../assets/venzo-frida-1.jpg" alt="Bicicleta Venzo Frida" />
-    <div class="detail-section">
-      <h1>Venzo Frida</h1>
-      <h2 class="price">$189.000</h2>
-      <div>
-        <h2>Detalles</h2>
-        <ul>
-          <li>Material: Aluminio</li>
-          <li>Marca: Venzo</li>
-          <li>Estilo: Mountain Bike</li>
-          <li>Color: Turquesa/Rojo</li>
-          <li>Rodado: 29</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Descripción</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
-          consequuntur dolores aliquid, fuga, autem accusantium sit vero rem cum
-          animi neque necessitatibus iure! Iusto, corporis ut sapiente tenetur
-          expedita accusamus? Sunt quia necessitatibus vel fugiat
-        </p>
-      </div>
-    </div>
-  </section>
-  <p *ngSwitchDefault>...</p>
 </main>
