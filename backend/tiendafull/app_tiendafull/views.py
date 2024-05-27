@@ -4,6 +4,7 @@ from knox.models import AuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.permissions import AllowAny
 from knox.views import LoginView as KnoxLoginView
 from knox.views import LogoutView as KnoxLogoutView
 from knox.views import LogoutAllView as KnoxLogoutAllView
@@ -68,5 +69,7 @@ class CustomLogoutAllView(KnoxLogoutAllView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

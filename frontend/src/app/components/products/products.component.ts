@@ -15,13 +15,9 @@ export class ProductsComponent {
   
   constructor(private productsService: ProductsService) {
     this.productsService.getProducts().subscribe((data) => {
+      console.log(data)
       this.bikes = data;
     });
   }
-  
-  // bikes = [
-  //   { id: 1, nombre: 'Raleigh M2.0', imagen: 'raleigh-1.jpg', precio: '$200.000' },
-  //   { id: 2, nombre: 'Trinx Gravel', imagen: 'trinx-gravel-1.jpg', precio: '$350.000',},
-  //   { id: 3, nombre: 'Venzo Frida', imagen: 'venzo-frida-1.jpg', precio: '$189.000' },
-  // ];
+
 }

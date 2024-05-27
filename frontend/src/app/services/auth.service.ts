@@ -21,7 +21,7 @@ interface UserResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private loginUrl = 'http://localhost:8000/api/login/'; // Cambiar esta URL por la del backend
+  private loginUrl = 'http://localhost:8000/api/login/';
 
   constructor(private http: HttpClient) {}
 

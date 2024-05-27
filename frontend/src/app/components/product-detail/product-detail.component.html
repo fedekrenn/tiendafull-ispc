@@ -1,8 +1,8 @@
 <main>
   <section class="product-section">
-    <img [src]="bike.imagen" [alt]="bike.nombre"/>
+    <img [src]="bike.imagen" [alt]="bike.marca"/>
     <div class="detail-section">
-      <h1>{{ bike.nombre }}</h1>
+      <h1>{{ bike.marca }} {{bike.modelo}}</h1>
       <h2 class="price">{{ bike.precio | currency : "$" : "symbol" : "1.2-2" }}</h2>
       <div>
         <h2>Detalles</h2>

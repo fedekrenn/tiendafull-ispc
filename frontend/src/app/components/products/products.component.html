@@ -4,7 +4,7 @@
     @for (bike of bikes; track $index) {
     <div class="item-card">
       <img [src]="bike.imagen" alt="Bicicleta Raleigh" />
-      <h2>{{ bike.nombre }}</h2>
+      <h2>{{ bike.marca }} {{ bike.modelo }}</h2>
       <h3>{{ bike.precio | currency : "$" : "symbol" : "1.2-2" }}</h3>
       <a class="item-card-btn" [routerLink]="'/productos/' + bike.id"
         >Ver detalle</a
