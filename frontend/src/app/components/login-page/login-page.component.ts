@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +19,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginPageComponent {
   form!: FormGroup;
-  contador: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +38,7 @@ export class LoginPageComponent {
   get Email() {
     return this.form.get('email');
   }
+
   validarUsuario() {
     if (this.form.value.email != '' && this.form.value.password != '') {
       const logUser = {
@@ -44,10 +46,22 @@ export class LoginPageComponent {
         email: this.form.value.email,
         password: this.form.value.password,
       };
-      this.authService.login(logUser).subscribe((data) => {
-        console.log(data);
-        sessionStorage.setItem('token', data.token);
-      });
+
+      this.authService
+        .login(logUser)
+        .pipe(
+          catchError((error) => {
+            alert('Error al iniciar sesión, por favor intenta de nuevo');
+            return throwError(error);
+          })
+        )
+        .subscribe((res) => {
+          if (res.token) {
+            sessionStorage.setItem('token', res.token);
+            alert('Usuario logueado');
+            this.router.navigate(['/']);
+          }
+        });
     }
   }
 }
