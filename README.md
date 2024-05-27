@@ -4,7 +4,6 @@ Proyecto grupal para el módulo "Programador Full Stack" de la tecnicatura en de
 
 ## 👩‍👩‍👦‍👦 Integrantes 
 
-- Ancillotti Lautaro | [GitHub](https://github.com/lnancillotti)
 - Barletta Fernando | [GitHub](https://github.com/Ferbarletta)
 - Blasiche Andrés | [GitHub](https://github.com/blasichea)
 - Cabrera Verónica | [GitHub](https://github.com/Verosolc30)

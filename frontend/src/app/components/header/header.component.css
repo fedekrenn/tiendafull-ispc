@@ -25,7 +25,6 @@ nav {
 
     &:hover{
       filter: grayscale(1.6);
-
     }
   }
 }

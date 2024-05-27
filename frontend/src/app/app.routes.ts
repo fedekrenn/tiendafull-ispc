@@ -12,21 +12,27 @@ import { DetailsComponent } from './components/customer-dashboard/details/detail
 import { HistorialComponent } from './components/customer-dashboard/historial/historial.component';
 import { EnvioComponent } from './components/customer-dashboard/envio/envio.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { CartPageComponent } from './components/cart-page/cart-page.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: LandingPageComponent },
   { path: 'productos', component: ProductsComponent },
   { path: 'productos/:id', component: ProductDetailComponent },
   { path: 'inicio-sesion', component: LoginPageComponent },
-  { path: 'panel-de-control', component: CustomerDashboardComponent, children:[
-    { path: 'detalles', component: DetailsComponent },
-    { path: 'historial', component: HistorialComponent },
-    { path: 'envio', component: EnvioComponent },
-  ] },
+  {
+    path: 'panel-de-control',
+    component: CustomerDashboardComponent,
+    children: [
+      { path: 'detalles', component: DetailsComponent },
+      { path: 'historial', component: HistorialComponent },
+      { path: 'envio', component: EnvioComponent },
+    ],
+  },
   { path: 'registro', component: RegisterComponent },
   { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
   { path: 'contacto', component: ContactPageComponent },
   { path: 'acerca-de-nosotros', component: AboutUsComponent },
+  { path: 'carrito', component: CartPageComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent },
 ];
