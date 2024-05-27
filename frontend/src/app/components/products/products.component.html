@@ -1,7 +1,11 @@
 <main>
   <h1>Productos en venta:</h1>
   <div class="main-section">
-    @for (bike of bikes; track $index) {
+    @if (loading){
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    } @for (bike of bikes; track $index) {
     <div class="item-card">
       <img [src]="bike.imagen" alt="Bicicleta Raleigh" />
       <h2>{{ bike.marca }} {{ bike.modelo }}</h2>

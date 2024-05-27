@@ -12,12 +12,12 @@ import { ProductsService, Product } from '../../services/products.service';
 })
 export class ProductsComponent {
   bikes: Product[] = [];
-  
+  loading: boolean = true;
   constructor(private productsService: ProductsService) {
     this.productsService.getProducts().subscribe((data) => {
-      console.log(data)
+      this.loading = false;
+      console.log(data);
       this.bikes = data;
     });
   }
-
 }
