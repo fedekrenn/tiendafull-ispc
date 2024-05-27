@@ -4,25 +4,29 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface User {
-  username:string
-  email:string
-  password:string
+  username: string;
+  email: string;
+  password: string;
 }
-interface UserResponse{
-  expiry:string
-  token:string
+interface UserResponse {
+  user: {
+    id: number;
+    email: string;
+    username: string;
+  };
+  token: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private loginUrl = 'http://localhost:8000/api/login/';  // Cambiar esta URL por la del backend
+  private loginUrl = 'http://localhost:8000/api/login/'; // Cambiar esta URL por la del backend
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  public login(user:User): Observable<UserResponse> {
-    return this.http.post<UserResponse>(this.loginUrl, user)
+  public login(user: User): Observable<UserResponse> {
+    return this.http.post<UserResponse>(this.loginUrl, user);
   }
 
   logout() {
