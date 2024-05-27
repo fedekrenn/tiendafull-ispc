@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -6,6 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-login-page',
@@ -14,19 +17,17 @@ import { RouterLink, Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
 })
-export class LoginPageComponent {
+export class LoginPageComponent{
   form!: FormGroup;
   contador: number = 0;
-  usuarioAdmin: string = 'admin@admin.com';
-  passAdmin: string = 'admin';
-
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  
+  constructor(private formBuilder: FormBuilder, private router: Router,private authService:AuthService) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email], []],
-      password: ['', [Validators.required], []],
-    });
+      password: ['', [Validators.required], []],      
+    });    
   }
-
+  
   get Password() {
     return this.form.get('password');
   }
@@ -34,24 +35,17 @@ export class LoginPageComponent {
   get Email() {
     return this.form.get('email');
   }
-
   validarUsuario() {
     if (this.form.value.email != '' && this.form.value.password != '') {
-      this.contador = this.contador + 1;
-      if (this.contador < 3) {
-        if (this.form.value.email == this.usuarioAdmin) {
-          if (this.form.value.password == this.passAdmin) {
-            alert('Bienvenido ' + this.form.value.email);
-            this.router.navigate(['/']);
-          } else {
-            alert('Contraseña incorrecta');
+//      this.contador = this.contador + 1;
+          const test = {
+            username:"ferbarletta@gmail.com" ,
+            email: this.form.value.email,
+            password: this.form.value.password            
           }
-        } else {
-          alert('Correo electrónico incorrecto');
-        }
-      } else {
-        alert('Usuario bloqueado');
-      }
+          this.authService.login(test).subscribe(data =>{
+            console.log(data)
+          })          
     }
   }
 }

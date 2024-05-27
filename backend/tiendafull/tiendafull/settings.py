@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'knox',
-    'app_tiendafull'
+    'app_tiendafull',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'tiendafull.urls'
@@ -138,3 +140,6 @@ REST_FRAMEWORK = {
     # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+CORS_ORIGIN_WHITELIST = ["http://localhost:4200"]
+CORS_ALLOW_CREDENTIALS = True
