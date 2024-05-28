@@ -12,8 +12,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { catchError } from 'rxjs';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -142,7 +140,6 @@ export class RegisterComponent {
   onEnviar(event: Event): void {
     event.preventDefault;
     if (this.form.valid) {
-      // alert('Los datos fueron enviados');
       const newUser = {
         username: this.form.value.username,
         first_name: this.form.value.first_name,
@@ -153,20 +150,19 @@ export class RegisterComponent {
         password: this.form.value.password1,
       };
 
-      this.authService
-        .register(newUser)
-        .pipe(
-          catchError((error) => {
-            alert('Error al registrar usuario, por favor intenta de nuevo');
-            return throwError(error);
-          })
-        )
-        .subscribe((res) => {
-          if (res) {
-            alert('Usuario registrado correctamente');
+      this.authService.register(newUser).subscribe({
+        next: (res) => {
+          if (res.token) {
+            sessionStorage.setItem('token', res.token);
+            alert('Usuario registrado');
             this.router.navigate(['/']);
           }
-        });
+        },
+        error: (error) => {
+          alert('Error al registrar usuario, por favor intenta de nuevo');
+          console.error(error);
+        },
+      });
     } else {
       this.form.markAllAsTouched();
     }

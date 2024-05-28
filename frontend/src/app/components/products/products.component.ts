@@ -13,11 +13,12 @@ import { ProductsService, Product } from '../../services/products.service';
 export class ProductsComponent {
   bikes: Product[] = [];
   loading: boolean = true;
+
   constructor(private productsService: ProductsService) {
-    this.productsService.getProducts().subscribe((data) => {
-      this.loading = false;
-      console.log(data);
-      this.bikes = data;
+    this.productsService.getProducts().subscribe({
+      next: (bikesList) => (this.bikes = bikesList),
+      error: (error) => console.error(error),
+      complete: () => (this.loading = false),
     });
   }
 }

@@ -7,8 +7,6 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -26,42 +24,45 @@ export class LoginPageComponent {
     private authService: AuthService
   ) {
     this.form = this.formBuilder.group({
+      username: ['', [Validators.required], []],
       email: ['', [Validators.required, Validators.email], []],
       password: ['', [Validators.required], []],
     });
   }
 
-  get Password() {
-    return this.form.get('password');
+  get username() {
+    return this.form.get('username');
   }
 
-  get Email() {
+  get email() {
     return this.form.get('email');
+  }
+
+  get password() {
+    return this.form.get('password');
   }
 
   validarUsuario() {
     if (this.form.value.email != '' && this.form.value.password != '') {
       const logUser = {
-        username: 'ferbarletta@gmail.com', // Deberíamos eliminar el campo en  el back
+        username: this.form.value.username,
         email: this.form.value.email,
         password: this.form.value.password,
       };
 
-      this.authService
-        .login(logUser)
-        .pipe(
-          catchError((error) => {
-            alert('Error al iniciar sesión, por favor intenta de nuevo');
-            return throwError(error);
-          })
-        )
-        .subscribe((res) => {
+      this.authService.login(logUser).subscribe({
+        next: (res) => {
           if (res.token) {
             sessionStorage.setItem('token', res.token);
             alert('Usuario logueado');
             this.router.navigate(['/']);
           }
-        });
+        },
+        error: (error) => {
+          alert('Error al iniciar sesión, por favor intenta de nuevo');
+          console.error(error);
+        },
+      });
     }
   }
 }
