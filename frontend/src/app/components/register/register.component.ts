@@ -3,13 +3,17 @@ import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import {
   FormBuilder,
-  FormsModule,
+  FormGroup,
   ReactiveFormsModule,
   Validators,
   ValidatorFn,
   ValidationErrors,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { catchError } from 'rxjs';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -19,89 +23,110 @@ import {
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  profileForm = this.formBuilder.group(
-    {
-      nombre: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(50),
-        ],
-      ],
-      apellido: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(45),
-        ],
-      ],
-      dni: [
-        '',
-        [
-          Validators.required,
-          Validators.compose([
-            Validators.min(1000000),
-            Validators.max(99999999),
-          ]),
-        ],
-      ],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      email: ['', [Validators.required, Validators.email]],
-      password1: [
-        '',
-        [
-          Validators.required,
-          Validators.compose([
-            Validators.minLength(6),
-            Validators.maxLength(20),
-          ]),
-        ],
-      ],
-      password2: [
-        '',
-        [
-          Validators.required,
-          Validators.compose([
-            Validators.minLength(6),
-            Validators.maxLength(20),
-          ]),
-        ],
-      ],
-    },
-    { validators: this.notEqualPasswordValidator() }
-  );
+  form!: FormGroup;
 
-  get nombre() {
-    return this.profileForm.get('nombre');
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.form = this.formBuilder.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(50),
+          ],
+        ],
+        first_name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(50),
+          ],
+        ],
+        last_name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(45),
+          ],
+        ],
+        nro_documento: [
+          '',
+          [
+            Validators.required,
+            Validators.compose([
+              Validators.min(1000000),
+              Validators.max(99999999),
+            ]),
+          ],
+        ],
+        telefono: [
+          '',
+          [Validators.required, Validators.pattern('^[0-9]{10}$')],
+        ],
+        email: ['', [Validators.required, Validators.email]],
+        password1: [
+          '',
+          [
+            Validators.required,
+            Validators.compose([
+              Validators.minLength(6),
+              Validators.maxLength(20),
+            ]),
+          ],
+        ],
+        password2: [
+          '',
+          [
+            Validators.required,
+            Validators.compose([
+              Validators.minLength(6),
+              Validators.maxLength(20),
+            ]),
+          ],
+        ],
+      },
+      { validators: this.notEqualPasswordValidator() }
+    );
   }
 
-  get apellido() {
-    return this.profileForm.get('apellido');
+  get username() {
+    return this.form.get('username');
   }
 
-  get dni() {
-    return this.profileForm.get('dni');
+  get first_name() {
+    return this.form.get('first_name');
+  }
+
+  get last_name() {
+    return this.form.get('last_name');
+  }
+
+  get nro_documento() {
+    return this.form.get('nro_documento');
   }
 
   get telefono() {
-    return this.profileForm.get('telefono');
+    return this.form.get('telefono');
   }
 
   get email() {
-    return this.profileForm.get('email');
+    return this.form.get('email');
   }
 
   get password1() {
-    return this.profileForm.get('password1');
+    return this.form.get('password1');
   }
 
   get password2() {
-    return this.profileForm.get('password2');
+    return this.form.get('password2');
   }
-
-  constructor(private formBuilder: FormBuilder) {}
 
   notEqualPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -114,12 +139,36 @@ export class RegisterComponent {
     };
   }
 
-  onEnviar(event: Event) {
+  onEnviar(event: Event): void {
     event.preventDefault;
-    if (this.profileForm.valid) {
-      alert('Los datos fueron enviados');
+    if (this.form.valid) {
+      // alert('Los datos fueron enviados');
+      const newUser = {
+        username: this.form.value.username,
+        first_name: this.form.value.first_name,
+        last_name: this.form.value.last_name,
+        nro_documento: this.form.value.nro_documento,
+        telefono: this.form.value.telefono,
+        email: this.form.value.email,
+        password: this.form.value.password1,
+      };
+
+      this.authService
+        .register(newUser)
+        .pipe(
+          catchError((error) => {
+            alert('Error al registrar usuario, por favor intenta de nuevo');
+            return throwError(error);
+          })
+        )
+        .subscribe((res) => {
+          if (res) {
+            alert('Usuario registrado correctamente');
+            this.router.navigate(['/']);
+          }
+        });
     } else {
-      this.profileForm.markAllAsTouched();
+      this.form.markAllAsTouched();
     }
   }
 }

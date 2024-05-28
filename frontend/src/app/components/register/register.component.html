@@ -13,90 +13,123 @@
       </div>
 
       <form
-        [formGroup]="profileForm"
+        [formGroup]="form"
         class="register-form"
         (ngSubmit)="onEnviar($event)"
       >
-        <label for="nombre" class="form-label"
+        <label for="username" class="form-label"
+          >Nombre de usuario:
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            formControlName="username"
+            placeholder="miusuario"
+            required
+          />
+          <div
+            *ngIf="
+              username &&
+              username.invalid &&
+              (username.dirty || username.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="username.errors?.['required']">
+              El nombre de usuario es un campo requerido.
+            </div>
+            <div *ngIf="username.errors?.['minlength']">
+              El nombre de usuario debe tener al menos 3 caracteres.
+            </div>
+          </div>
+        </label>
+        <label for="first_name" class="form-label"
           >Nombre:
           <input
             type="text"
             class="form-control"
-            id="nombre"
-            name="nombre"
-            formControlName="nombre"
+            id="first_name"
+            name="first_name"
+            formControlName="first_name"
             placeholder="Jose"
             required
           />
           <div
-            *ngIf="nombre && nombre.invalid && (nombre.dirty || nombre.touched)"
+            *ngIf="first_name && first_name.invalid && (first_name.dirty || first_name.touched)"
             class="alert alert-danger"
           >
-            <div *ngIf="nombre.errors?.['required']">
+            <div *ngIf="first_name.errors?.['required']">
               Nombre es un campo requerido.
             </div>
-            <div *ngIf="nombre.errors?.['minlength']">
+            <div *ngIf="first_name.errors?.['minlength']">
               El nombre debe tener al menos 3 caracteres.
             </div>
           </div>
         </label>
-        <label for="apellido" class="form-label"
+        <label for="last_name" class="form-label"
           >Apellido:
           <input
             type="text"
             class="form-control"
-            id="apellido"
-            name="apellido"
-            formControlName="apellido"
+            id="last_name"
+            name="last_name"
+            formControlName="last_name"
             placeholder="Hernandez"
             required
           />
           <div
             *ngIf="
-              apellido &&
-              apellido.invalid &&
-              (apellido.dirty || apellido.touched)
+              last_name &&
+              last_name.invalid &&
+              (last_name.dirty || last_name.touched)
             "
             class="alert alert-danger"
           >
-            <div *ngIf="apellido.errors?.['required']">
+            <div *ngIf="last_name.errors?.['required']">
               Apellido es un campo requerido.
             </div>
-            <div *ngIf="apellido.errors?.['minlength']">
+            <div *ngIf="last_name.errors?.['minlength']">
               El apellido debe tener al menos 3 caracteres.
             </div>
           </div>
         </label>
-        <label for="dni" class="form-label"
+        <label for="nro_documento" class="form-label"
           >DNI:
           <input
             type="number"
             class="form-control"
-            id="dni"
-            name="dni"
-            formControlName="dni"
+            id="nro_documento"
+            name="nro_documento"
+            formControlName="nro_documento"
             placeholder="Ej: 20111222"
             required
           />
           <div
-            *ngIf="dni && dni.invalid && (dni.dirty || dni.touched)"
+            *ngIf="
+              nro_documento &&
+              nro_documento.invalid &&
+              (nro_documento.dirty || nro_documento.touched)
+            "
             class="alert alert-danger"
           >
-            <div *ngIf="dni.errors?.['required']">
+            <div *ngIf="nro_documento.errors?.['required']">
               DNI es un campo requerido.
             </div>
-            <div *ngIf="dni.errors?.['min'] || dni.errors?.['max']">
+            <div
+              *ngIf="nro_documento.errors?.['min'] || nro_documento.errors?.['max']"
+            >
               El DNI debe tener 7 u 8 caracteres.
             </div>
           </div>
         </label>
-        <label for="tel" class="form-label"
+        <label for="telefono" class="form-label"
           >Teléfono:
           <input
             type="tel"
             class="form-control"
-            id="tel"
-            name="tel"
+            id="telefono"
+            name="telefono"
             formControlName="telefono"
             required
             placeholder="Código de área sin el 0 y número sin el 15"
@@ -197,20 +230,19 @@
           </div>
         </label>
         <div
-          *ngIf="profileForm && profileForm.errors?.['notEqualPassword'] &&
-          (profileForm.touched || profileForm.dirty)"
+          *ngIf="form && form.errors?.['notEqualPassword'] &&
+          (form.touched || form.dirty)"
           class="alert alert-danger"
         >
           Las contraseñas NO coinciden.
         </div>
-        <button
-          type="submit"
-          [disabled]="!profileForm.valid"
-          class="btn btn-primary"
-        >
+        <button type="submit" [disabled]="!form.valid" class="btn btn-primary">
           Crear cuenta
         </button>
-        <span>Si ya tienes cuenta, <a routerLink="/inicio-sesion"> Logueate</a></span>
+        <span
+          >Si ya tienes cuenta,
+          <a routerLink="/inicio-sesion"> Logueate</a></span
+        >
         <br />
       </form>
     </div>

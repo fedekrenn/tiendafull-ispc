@@ -3,6 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENDPOINT } from '../utils/url';
 
+export interface NewUser {
+  username: string;
+  first_name: string;
+  last_name: string;
+  nro_documento: string;
+  telefono: string;
+  email: string;
+  password: string;
+}
+
 export interface User {
   id?: number;
   username: string;
@@ -24,12 +34,7 @@ export class AuthService {
     return this.http.post<UserResponse>(ENDPOINT + 'login/', user);
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-  }
-
-  getUsername(): string | null {
-    return localStorage.getItem('username');
+  public register(user: NewUser): Observable<any> {
+    return this.http.post<any>(ENDPOINT + 'register/', user);
   }
 }
