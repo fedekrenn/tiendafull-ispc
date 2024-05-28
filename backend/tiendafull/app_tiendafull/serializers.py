@@ -96,3 +96,27 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_color(self, obj):
         return obj.color.descripcion if obj.color else None
+
+
+class CartDetailSerializer(serializers.ModelSerializer):
+    producto = ProductSerializer()
+
+    class Meta:
+        model = CartDetail
+        fields = ["cantidad", "producto"]
+
+
+class CartSerializer(serializers.ModelSerializer):
+    detalles = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cart
+        fields = ["email", "fecha", "detalles"]
+
+    def get_detalles(self, obj):
+        detalles = CartDetail.objects.filter(carrito=obj)
+        return CartDetailSerializer(detalles, many=True).data
+
+    def get_email(self, obj):
+        return obj.email.email

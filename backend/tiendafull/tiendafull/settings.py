@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "tiendafull.urls"
@@ -81,7 +81,7 @@ WSGI_APPLICATION = "tiendafull.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "mysql.connector.django",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "birbwlmtgx9foskz7htp",
         "USER": "ufviyunwoxe5dduk",
         "PASSWORD": "Ta5bGQSqJnDfsuUEpcyH",
@@ -139,7 +139,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "knox.auth.TokenAuthentication",
         # 'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
 }
 
 CORS_ORIGIN_WHITELIST = ["http://localhost:4200", "http://127.0.0.1:4200"]

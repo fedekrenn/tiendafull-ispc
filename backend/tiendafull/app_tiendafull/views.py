@@ -21,14 +21,13 @@ class LoginView(KnoxLoginView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         login(request, user)
-        user_serializer=UserSerializer(user)
-        _,token=AuthToken.objects.create(user)
+        user_serializer = UserSerializer(user)
+        _, token = AuthToken.objects.create(user)
 
-        return Response({
-            "user":user_serializer.data,
-            "token": token
-        },status=status.HTTP_200_OK
+        return Response(
+            {"user": user_serializer.data, "token": token}, status=status.HTTP_200_OK
         )
+
 
 class RegistroView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -73,3 +72,11 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class CartDetailViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CartSerializer
+
+    def get_queryset(self):
+        return Cart.objects.filter(email=self.request.user)
