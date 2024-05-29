@@ -17,13 +17,18 @@ export interface NewUser {
 export interface User {
   id?: number;
   username: string;
-  email: string;
+  email?: string;
   password?: string;
 }
+
 export interface UserResponse {
   user: User;
   token: string;
-  is_staff:any;
+  is_staff: any;
+}
+
+export interface LogoutResponse {
+  message: string;
 }
 
 @Injectable({
@@ -36,17 +41,22 @@ export class AuthService {
     return this.http.post<UserResponse>(ENDPOINT + 'login/', user);
   }
 
-  public register(user: NewUser): Observable<any> {
-    return this.http.post<any>(ENDPOINT + 'register/', user);
+  public register(user: NewUser): Observable<UserResponse> {
+    return this.http.post<UserResponse>(ENDPOINT + 'register/', user);
   }
-  logout(): Observable<any> {
+
+  public logout(): Observable<LogoutResponse> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
-    return this.http.post(ENDPOINT+ 'logout/' , {}, { headers });
+    return this.http.post<LogoutResponse>(
+      ENDPOINT + 'logout/',
+      {},
+      { headers }
+    );
   }
-  clearToken(): void {
+
+  public clearToken(): void {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('isAdmin');
   }
-
 }

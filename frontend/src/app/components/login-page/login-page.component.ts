@@ -24,8 +24,7 @@ export class LoginPageComponent {
     private authService: AuthService
   ) {
     this.form = this.formBuilder.group({
-      username: ['', [Validators.required], []],
-      email: ['', [Validators.required, Validators.email], []],
+      username: ['', [Validators.required, Validators.email], []],
       password: ['', [Validators.required], []],
     });
   }
@@ -34,19 +33,14 @@ export class LoginPageComponent {
     return this.form.get('username');
   }
 
-  get email() {
-    return this.form.get('email');
-  }
-
   get password() {
     return this.form.get('password');
   }
 
   validarUsuario() {
-    if (this.form.value.email != '' && this.form.value.password != '') {
+    if (this.form.value.username != '' && this.form.value.password != '') {
       const logUser = {
         username: this.form.value.username,
-        email: this.form.value.email,
         password: this.form.value.password,
       };
 
@@ -54,7 +48,7 @@ export class LoginPageComponent {
         next: (res) => {
           if (res.token) {
             sessionStorage.setItem('token', res.token);
-            console.log(res)
+            console.log(res);
             sessionStorage.setItem('isAdmin', res.is_staff);
             alert('Usuario logueado');
             this.router.navigate(['/']);
