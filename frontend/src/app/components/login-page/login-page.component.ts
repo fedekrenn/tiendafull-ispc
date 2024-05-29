@@ -54,6 +54,8 @@ export class LoginPageComponent {
         next: (res) => {
           if (res.token) {
             sessionStorage.setItem('token', res.token);
+            console.log(res)
+            sessionStorage.setItem('isAdmin', res.is_staff);
             alert('Usuario logueado');
             this.router.navigate(['/']);
           }

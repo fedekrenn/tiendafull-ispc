@@ -23,6 +23,7 @@ export interface User {
 export interface UserResponse {
   user: User;
   token: string;
+  is_staff:any;
 }
 
 @Injectable({
@@ -45,6 +46,7 @@ export class AuthService {
   }
   clearToken(): void {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('isAdmin');
   }
 
 }

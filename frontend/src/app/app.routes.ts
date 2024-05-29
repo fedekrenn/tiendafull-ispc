@@ -14,6 +14,8 @@ import { EnvioComponent } from './components/customer-dashboard/envio/envio.comp
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { LogoutPageComponent } from './components/logout-page/logout-page.component';
+import { IngresarProductosComponent } from './components/customer-dashboard/ingresar-productos/ingresar-productos.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'inicio', component: LandingPageComponent },
@@ -27,6 +29,7 @@ export const routes: Routes = [
       { path: 'detalles', component: DetailsComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'envio', component: EnvioComponent },
+      { path: 'ingresar-productos', component: IngresarProductosComponent, canActivate: [authGuard] }
     ],
   },
   { path: 'registro', component: RegisterComponent },
