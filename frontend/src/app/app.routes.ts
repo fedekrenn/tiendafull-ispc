@@ -13,6 +13,7 @@ import { HistorialComponent } from './components/customer-dashboard/historial/hi
 import { EnvioComponent } from './components/customer-dashboard/envio/envio.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartPageComponent } from './components/cart-page/cart-page.component';
+import { LogoutPageComponent } from './components/logout-page/logout-page.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: LandingPageComponent },
@@ -29,6 +30,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'registro', component: RegisterComponent },
+  {path: "logout", component: LogoutPageComponent},
   { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
   { path: 'contacto', component: ContactPageComponent },
   { path: 'acerca-de-nosotros', component: AboutUsComponent },

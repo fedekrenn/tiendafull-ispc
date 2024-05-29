@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENDPOINT } from '../utils/url';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface NewUser {
   username: string;
@@ -37,4 +38,13 @@ export class AuthService {
   public register(user: NewUser): Observable<any> {
     return this.http.post<any>(ENDPOINT + 'register/', user);
   }
+  logout(): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.post(ENDPOINT+ 'logout/' , {}, { headers });
+  }
+  clearToken(): void {
+    sessionStorage.removeItem('token');
+  }
+
 }

@@ -27,4 +27,7 @@ nav {
       filter: grayscale(1.6);
     }
   }
+  .nav-item a.nav-link {
+    color: white;
+  }
 }
