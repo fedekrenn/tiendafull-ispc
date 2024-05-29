@@ -11,7 +11,7 @@ from knox.views import LogoutAllView as KnoxLogoutAllView
 from app_tiendafull.serializers import *
 from app_tiendafull.models import *
 from rest_framework.permissions import IsAuthenticated
-
+from .permissions import IsAdminOrReadOnly
 
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
@@ -31,6 +31,7 @@ class LoginView(KnoxLoginView):
 
 class RegistroView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -68,7 +69,7 @@ class CustomLogoutAllView(KnoxLogoutAllView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminOrReadOnly]
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
