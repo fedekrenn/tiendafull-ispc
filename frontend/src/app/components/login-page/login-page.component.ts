@@ -16,6 +16,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
+  contador : number = 1;
   form!: FormGroup;
 
   constructor(
@@ -36,29 +37,37 @@ export class LoginPageComponent {
   get password() {
     return this.form.get('password');
   }
-
-  validarUsuario() {
-    if (this.form.value.username != '' && this.form.value.password != '') {
-      const logUser = {
-        username: this.form.value.username,
-        password: this.form.value.password,
-      };
-
-      this.authService.login(logUser).subscribe({
-        next: (res) => {
-          if (res.token) {
-            sessionStorage.setItem('token', res.token);
-            console.log(res);
-            sessionStorage.setItem('isAdmin', res.is_staff);
-            alert('Usuario logueado');
-            this.router.navigate(['/']);
-          }
-        },
-        error: (error) => {
-          alert('Error al iniciar sesión, por favor intenta de nuevo');
-          console.error(error);
-        },
-      });
+  
+    validarUsuario() {    
+      if (this.form.value.username != '' && this.form.value.password != '') {
+        const logUser = {
+          username: this.form.value.username,
+          password: this.form.value.password,
+        };
+    
+      if (this.contador < 3) {
+        this.authService.login(logUser).subscribe({
+          next: (res) => {
+            if (res.token) {
+              sessionStorage.setItem('token', res.token);
+              console.log(res);
+              sessionStorage.setItem('isAdmin', res.is_staff);
+              alert('Bienvenido ' + res.user.email);
+              this.router.navigate(['/productos']);
+              this.contador = 0  
+            }
+          },
+          error: (error) => {            
+            alert('Error al iniciar sesión. Intento ' + this.contador  + ' de 3');
+            console.error(error);
+            this.contador++;
+          },
+        }
+      );
+      }
+      else {
+        alert('Usuario bloqueado')
+      }
     }
   }
 }
