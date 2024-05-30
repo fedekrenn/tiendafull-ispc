@@ -7,25 +7,23 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './logout-page.component.html',
-  styleUrl: './logout-page.component.css'
+  styleUrl: './logout-page.component.css',
 })
 export class LogoutPageComponent {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  logout(): void {
-    this.authService.logout().subscribe(
-      data => {
-      
-        alert("Desconetado", )
+  logout() {
+    this.authService.logout().subscribe({
+      next: (res) => {
+        alert('Has sido desconectado correctamente! Hasta la próxima!');
+        console.log(res);
         this.authService.clearToken();
-        console.log("Usuario desconectado.");
         this.router.navigate(['/inicio']);
       },
-      error => {
-        console.error("Error al desconectar:", error);
-      }
-    );
+      error: (error) => {
+        console.error('Error al desconectar:', error);
+        alert('Error al desconectar, por favor intenta de nuevo');
+      },
+    });
   }
 }
-
-

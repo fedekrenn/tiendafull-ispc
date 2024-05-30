@@ -31,13 +31,13 @@ export class ProductsService {
   public getProduct(id: number): Observable<Product> {
     return this.http.get<Product>(ENDPOINT + 'products/' + id);
   }
-  
-  postProducts( product: Product):Observable<any>
-  {
-    const token=sessionStorage.getItem("token")
-    const headers = new HttpHeaders().set('Authorization', `Token ${token}`) .set('Content-Type', 'application/json');;
-    
-    
+
+  public postProducts(product: Product): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Token ${token}`)
+      .set('Content-Type', 'application/json');
+
     return this.http.post(ENDPOINT + 'products/', product, { headers });
-    }
+  }
 }

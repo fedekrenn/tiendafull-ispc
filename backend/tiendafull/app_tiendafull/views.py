@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAdminOrReadOnly
 from rest_framework.decorators import action
 
+
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
 
@@ -31,7 +32,7 @@ class LoginView(KnoxLoginView):
         )
 
 
-class RegistroView(generics.GenericAPIView):
+class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
 
@@ -50,23 +51,21 @@ class RegistroView(generics.GenericAPIView):
         )
 
 
-class CustomLogoutView(KnoxLogoutView):
+class LogoutView(KnoxLogoutView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
         response = super().post(request, format=None)
-        return Response(
-            {"success": "Logout successful"}, status=response.status.HTTP_204_NO_CONTENT
-        )
+        return Response({"success": "Logged out"}, status=response.status_code)
 
 
-class CustomLogoutAllView(KnoxLogoutAllView):
-    permission_classes = [IsAuthenticated]
+class LogoutAllView(KnoxLogoutAllView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def post(self, request, format=None):
         response = super().post(request, format=None)
         return Response(
-            {"success": "Logged out from all devices"}, status=response.HTTP_200_OK
+            {"success": "All users are logged out"}, status=response.status_code
         )
 
 

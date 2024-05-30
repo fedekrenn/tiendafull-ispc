@@ -8,7 +8,14 @@ class CustomUser(AbstractUser):
     nro_documento = models.IntegerField(null=True, blank=True)
     telefono = models.CharField(max_length=45, null=True, blank=True)
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "password"]
+    REQUIRED_FIELDS = [
+        "username",
+        "password",
+        "first_name",
+        "last_name",
+        "nro_documento",
+        "telefono",
+    ]
 
     class Meta:
         db_table = "usuario"
@@ -170,7 +177,7 @@ class PurchaseDetail(models.Model):
     cantidad = models.PositiveIntegerField()
     compra = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     producto = models.ForeignKey(Product, on_delete=models.CASCADE)
-    precio_compra = models.FloatField() # Precio del producto al momento de la compra
+    precio_compra = models.FloatField()  # Precio del producto al momento de la compra
 
     class Meta:
         db_table = "detalle_compra"
