@@ -2,12 +2,15 @@
   <h1>Productos en el carrito:</h1>
 
   <section class="items-container">
-    <app-cart-item></app-cart-item>
+    @for (item of cartItems; track $index) {
+      <app-cart-item [item]="item"></app-cart-item>
+    }
   </section>
 
   <div class="cart-total">
-    <h2>Total:</h2>
-    <h3>$370000</h3>
+    <h2>Importe total:</h2>
+    <h3>{{ totalAmount | currency : "$" : "symbol" : "1.2-2" }}</h3>
+    <h4>Cantidad total de productos: {{ cartItems.length }}</h4>
     <button class="pay-btn">Comprar</button>
   </div>
 </main>

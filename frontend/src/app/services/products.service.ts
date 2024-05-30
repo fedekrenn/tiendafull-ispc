@@ -3,20 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENDPOINT } from '../utils/url';
 import { HttpHeaders } from '@angular/common/http';
-
-export interface Product {
-  id?: number;
-  marca: string;
-  modelo: string;
-  imagen?: string;
-  precio: number;
-  color: string;
-  detalle?: string;
-  estilo: string;
-  material: string;
-  rodado: string;
-  stock: number;
-}
+import type { Product } from '../types/types';
 
 @Injectable({
   providedIn: 'root',

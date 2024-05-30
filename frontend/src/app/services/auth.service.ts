@@ -4,34 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ENDPOINT } from '../utils/url';
 import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-
-export interface NewUser {
-  username: string;
-  first_name: string;
-  last_name: string;
-  nro_documento: string;
-  telefono: string;
-  email: string;
-  password: string;
-}
-
-export interface User {
-  id?: number;
-  username: string;
-  email?: string;
-  password?: string;
-  is_staff?: boolean;
-}
-
-export interface UserResponse {
-  user: User;
-  token: string;
-  is_staff: any;
-}
-
-export interface LogoutResponse {
-  message: string;
-}
+import { User, NewUser, UserResponse, LogoutResponse } from '../types/types';
 
 @Injectable({
   providedIn: 'root',

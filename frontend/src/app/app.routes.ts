@@ -29,11 +29,15 @@ export const routes: Routes = [
       { path: 'detalles', component: DetailsComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'envio', component: EnvioComponent },
-      { path: 'ingresar-productos', component: IngresarProductosComponent, canActivate: [authGuard] }
+      {
+        path: 'ingresar-productos',
+        component: IngresarProductosComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
   { path: 'registro', component: RegisterComponent },
-  {path: "logout", component: LogoutPageComponent},
+  { path: 'logout', component: LogoutPageComponent },
   { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
   { path: 'contacto', component: ContactPageComponent },
   { path: 'acerca-de-nosotros', component: AboutUsComponent },

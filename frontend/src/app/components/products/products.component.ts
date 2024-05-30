@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ProductsService, Product } from '../../services/products.service';
+import { ProductsService } from '../../services/products.service';
+import type { Product } from '../../types/types';
 
 @Component({
   selector: 'app-galeria-productos',

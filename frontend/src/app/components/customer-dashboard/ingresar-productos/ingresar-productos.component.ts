@@ -2,25 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ProductsService, Product } from '../../../services/products.service';
+import { ProductsService } from '../../../services/products.service';
 import { RouterModule } from '@angular/router';
-
-
+import { Product } from '../../../types/types';
 
 @Component({
   selector: 'app-ingresar-productos',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './ingresar-productos.component.html',
-  styleUrl: './ingresar-productos.component.css'
+  styleUrl: './ingresar-productos.component.css',
 })
 export class IngresarProductosComponent implements OnInit {
-
   productos: any[] = [];
   productoForm!: FormGroup;
 
-
-  constructor(private producstService: ProductsService, private formBuilder: FormBuilder) { }
+  constructor(
+    private producstService: ProductsService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.obtenerProductos();
@@ -34,24 +34,24 @@ export class IngresarProductosComponent implements OnInit {
       rodado: ['', Validators.required],
       estilo: ['', Validators.required],
       material: ['', Validators.required],
-      color: ['', Validators.required]
+      color: ['', Validators.required],
     });
   }
 
   obtenerProductos(): void {
     this.producstService.getProducts().subscribe(
-      data => {
+      (data) => {
         this.productos = data;
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
   }
 
-  crearProducto(event:Event): void {
+  crearProducto(event: Event): void {
     event.preventDefault();
-   
+
     if (this.productoForm.valid) {
       if (this.productoForm.valid) {
         const nuevoProducto: Product = {
@@ -66,24 +66,22 @@ export class IngresarProductosComponent implements OnInit {
           material: this.productoForm.value.material,
           color: this.productoForm.value.color,
         };
-   
-      console.log("Enviando al servidor...", nuevoProducto);
 
-      this.producstService.postProducts(nuevoProducto).subscribe(
-        data => {
-          console.log("Producto creado:", data);
-          this.obtenerProductos(); 
-          this.productoForm.reset(); 
-        },
-        error => {
-          console.error(error);
-          
-        }
-      );
-    } else {
-      
-      this.productoForm.markAllAsTouched();
+        console.log('Enviando al servidor...', nuevoProducto);
+
+        this.producstService.postProducts(nuevoProducto).subscribe(
+          (data) => {
+            console.log('Producto creado:', data);
+            this.obtenerProductos();
+            this.productoForm.reset();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else {
+        this.productoForm.markAllAsTouched();
+      }
     }
   }
-  
-}}
+}
