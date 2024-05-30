@@ -5,7 +5,8 @@ from knox import views as knox_views
 
 router = routers.DefaultRouter()
 router.register(r"products", views.ProductViewSet)
-router.register(r"cart-detail", views.CartDetailViewSet, basename="cart-detail")
+router.register(r'cart', views.CartViewSet)
+#router.register(r"cart-detail", views.CartDetailViewSet, basename="cart-detail")
 
 
 urlpatterns = [

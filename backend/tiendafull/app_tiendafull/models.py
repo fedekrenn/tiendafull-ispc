@@ -92,9 +92,9 @@ class WheelSizeType(models.Model):
 
 
 class Product(models.Model):
-    modelo = models.CharField(max_length=45)
-    precio = models.FloatField()
-    stock = models.IntegerField()
+    modelo = models.CharField(max_length=45, default='Modelo por defecto')
+    precio = models.FloatField(default=0.0)
+    stock = models.IntegerField(default=0)
     imagen = models.CharField(max_length=200, null=True, blank=True)
     detalle = models.TextField(max_length=500, null=True, blank=True)
     marca = models.ForeignKey(
