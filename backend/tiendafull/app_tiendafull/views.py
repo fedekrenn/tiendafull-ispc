@@ -25,10 +25,11 @@ class LoginView(KnoxLoginView):
         login(request, user)
         user_serializer = UserSerializer(user)
         _, token = AuthToken.objects.create(user)
-        isAdmin= request.user.is_staff
+        isAdmin = request.user.is_staff
 
         return Response(
-            {"user": user_serializer.data, "token": token, "is_staff":isAdmin}, status=status.HTTP_200_OK
+            {"user": user_serializer.data, "token": token, "is_staff": isAdmin},
+            status=status.HTTP_200_OK,
         )
 
 
@@ -59,14 +60,12 @@ class LogoutView(KnoxLogoutView):
         return Response({"success": "Logged out"}, status=response.status_code)
 
 
-class LogoutAllView(KnoxLogoutAllView):
+class LogoutAllView(APIView):
     permission_classes = [IsAdminOrReadOnly]
 
     def post(self, request, format=None):
-        response = super().post(request, format=None)
-        return Response(
-            {"success": "All users are logged out"}, status=response.status_code
-        )
+        AuthToken.objects.all().delete()
+        return Response({"success": "All users are logged out"})
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -75,66 +74,92 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=["post"])
     def crear_carrito(self, request):
         try:
             carrito, created = Cart.objects.get_or_create(email=request.user)
             if created:
-                return Response({'message': 'Carrito creado exitosamente'}, status=status.HTTP_201_CREATED)
+                return Response(
+                    {"message": "Carrito creado exitosamente"},
+                    status=status.HTTP_201_CREATED,
+                )
             else:
-                return Response({'message': 'El carrito ya existe'}, status=status.HTTP_200_OK)
+                return Response(
+                    {"message": "El carrito ya existe"}, status=status.HTTP_200_OK
+                )
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['delete'])
+    @action(detail=False, methods=["delete"])
     def delete_cart(self, request):
         try:
             carrito = Cart.objects.get(email=request.user)
             carrito.delete()
-            return Response({'message': 'Carrito eliminado exitosamente'}, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"message": "Carrito eliminado exitosamente"},
+                status=status.HTTP_204_NO_CONTENT,
+            )
         except Cart.DoesNotExist:
-            return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-        
-    @action(detail=False, methods=['post'])
+            return Response(
+                {"error": "Carrito no encontrado"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+    @action(detail=False, methods=["post"])
     def agregar_producto(self, request):
-        id_producto = request.data.get('id_producto')
-        cantidad = request.data.get('cantidad', 1)
+        id_producto = request.data.get("id_producto")
+        cantidad = request.data.get("cantidad", 1)
         try:
-            print(f"User: {request.user}, Email: {request.user}") 
+            print(f"User: {request.user}, Email: {request.user}")
             carrito, _ = Cart.objects.get_or_create(email=request.user)
 
             producto = Product.objects.get(pk=id_producto)
-            item, item_created = CartDetail.objects.get_or_create(carrito=carrito, producto=producto, defaults={'cantidad': cantidad})
+            item, item_created = CartDetail.objects.get_or_create(
+                carrito=carrito, producto=producto, defaults={"cantidad": cantidad}
+            )
             if not item_created:
                 item.cantidad += int(cantidad)
             item.save()
-            return Response({'message': 'Producto agregado al carrito exitosamente'})
+            return Response({"message": "Producto agregado al carrito exitosamente"})
         except Product.DoesNotExist:
-            return Response({'error': 'Producto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Producto no encontrado"}, status=status.HTTP_404_NOT_FOUND
+            )
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=["get"])
     def items(self, request):
         try:
             carrito = Cart.objects.get(email=request.user)
             items = CartDetail.objects.filter(carrito=carrito)
             serializer = CartDetailSerializer(items, many=True)
-            return Response(serializer.data)
+            cart_response = {
+                "id_carrito": carrito.id,
+                "fecha_creacion": carrito.fecha,
+                "email": carrito.email.email,
+                "items": serializer.data,
+            }
+            return Response(cart_response)
         except Cart.DoesNotExist:
-            return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Carrito no encontrado"}, status=status.HTTP_404_NOT_FOUND
+            )
 
-    @action(detail=False, methods=['delete'])
+    @action(detail=False, methods=["delete"])
     def delete_item(self, request):
-        item_id = request.data.get('item_id')
+        item_id = request.data.get("item_id")
         try:
             item = CartDetail.objects.get(id=item_id)
             item.delete()
-            return Response({'message': 'Ítem eliminado del carrito exitosamente'})
+            return Response({"message": "Ítem eliminado del carrito exitosamente"})
         except CartDetail.DoesNotExist:
-            return Response({'error': 'Ítem no encontrado en el carrito'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Ítem no encontrado en el carrito"},
+                status=status.HTTP_404_NOT_FOUND,
+            )

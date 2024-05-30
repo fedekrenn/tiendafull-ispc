@@ -18,6 +18,7 @@ admin.site.register(PurchaseDetail)
 admin.site.register(DeliveryStatusType)
 admin.site.register(Delivery)
 
+
 @admin.register(get_user_model())
 class UserAdmin(UserAdmin):
     pass

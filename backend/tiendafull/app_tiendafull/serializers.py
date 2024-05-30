@@ -115,19 +115,20 @@ class ProductSerializer(serializers.ModelSerializer):
         return obj.color.descripcion if obj.color else None
 
 
-    
 class CartDetailSerializer(serializers.ModelSerializer):
     producto = ProductSerializer()
 
     class Meta:
         model = CartDetail
-        fields = ['id', 'carrito', 'producto', 'cantidad']  
-        
-  
-    
+        fields = [
+            "cantidad",
+            "producto",
+        ]
+
+
 class CartSerializer(serializers.ModelSerializer):
     email = serializers.SerializerMethodField()
+
     class Meta:
         model = Cart
-        fields = '__all__'
-        
+        fields = "__all__"
