@@ -144,7 +144,7 @@ class Cart(models.Model):
 
 class CartDetail(models.Model):
     cantidad = models.PositiveIntegerField()
-    carrito = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     producto = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
@@ -157,9 +157,10 @@ class CartDetail(models.Model):
 
 
 class Purchase(models.Model):
-    nro_factura = models.IntegerField()
+    nro_factura = models.CharField(max_length=100)
     fecha = models.DateField(auto_now_add=True)
     email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    total = models.IntegerField(default=0)
     modo_pago = models.ForeignKey(
         PaymentModeType, on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -204,7 +205,7 @@ class Delivery(models.Model):
     compra = models.OneToOneField(Purchase, on_delete=models.CASCADE)
     nro_seguimiento = models.CharField(max_length=45)
     domicilio_entrega = models.CharField(max_length=200)
-    fecha_estimada = models.DateField()
+    fecha_estimada = models.DateField(null=True, blank=True)
     fecha_entrega = models.DateField(null=True, blank=True)
     estado_entrega = models.ForeignKey(
         DeliveryStatusType, on_delete=models.SET_NULL, null=True, blank=True

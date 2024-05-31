@@ -13,8 +13,8 @@ from app_tiendafull.models import *
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAdminOrReadOnly
 from rest_framework.decorators import action
-
-
+from django.db.models import Sum, F
+from .utils import generate_invoice_number
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
 
@@ -163,3 +163,65 @@ class CartViewSet(viewsets.ModelViewSet):
                 {"error": "Ítem no encontrado en el carrito"},
                 status=status.HTTP_404_NOT_FOUND,
             )
+class PurchaseViewSet(viewsets.ModelViewSet):
+    queryset = Purchase.objects.all()
+    serializer_class = PurchaseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        try:
+        
+            carrito = Cart.objects.get(email=request.user)
+
+          
+            total = carrito.items.aggregate(total=Sum(F('producto__precio') * F('cantidad')))['total']
+
+            # Crear la compra
+            compra = Purchase.objects.create(
+                nro_factura=generate_invoice_number(), 
+                email=request.user,
+                modo_pago_id=request.data.get('modo_pago'),
+                total=total
+         
+            )
+
+            purchase_details = []
+            for item in carrito.items.all():
+                detail = PurchaseDetail.objects.create(
+                    cantidad=item.cantidad,
+                    compra=compra,
+                    producto=item.producto,
+                    precio_compra=item.producto.precio 
+                )
+                purchase_details.append(detail)
+
+          
+            carrito.items.all().delete()
+
+          
+            purchase_data = PurchaseSerializer(compra).data
+            details_data = PurchaseDetailSerializer(purchase_details, many=True).data
+
+        
+            response_data = {
+                'message': 'Compra realizada exitosamente',
+                'purchase': purchase_data,
+                'details': details_data
+            }
+
+            return Response(response_data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+class DeliveryViewSet(viewsets.ModelViewSet):
+    queryset = Delivery.objects.all()
+    serializer_class = DeliverySerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(compra=self.request.data['compra'])
+
+class PurchaseDetailViewSet(viewsets.ModelViewSet):
+    queryset = PurchaseDetail.objects.all()
+    serializer_class = PurchaseDetailSerializer
+    permission_classes = [IsAuthenticated]
