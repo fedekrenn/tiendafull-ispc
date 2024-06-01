@@ -33,41 +33,44 @@
             >
           </li>
         </ul>
+
+        @if (isLoggedIn) {
+        <div class="icons-container">
+          <ul class="icons-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/carrito"
+                ><img
+                  src="../../../assets/icons/shopping-cart.svg"
+                  alt="Icono de carrito"
+              /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/panel-de-control"
+                ><img
+                  src="../../../assets/icons/layout-dashboard.svg"
+                  alt="Icono del tablero"
+              /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/logout">
+                <img
+                  src="../../../assets/icons/user-off.svg"
+                  alt="Icono de cerrar sesión"
+                />
+              </a>
+            </li>
+          </ul>
+          <span class="user-name">{{ userEmail }}</span>
+        </div>
+        } @else {
         <ul class="icons-nav">
-          @if (isLoggedIn) {
-          <li class="nav-usr">
-              <span>{{ userEmail }}</span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/carrito"
-              ><img
-                src="../../../assets/icons/shopping-cart.svg"
-                alt="Icono de carrito"
-            /></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/panel-de-control"
-              ><img
-                src="../../../assets/icons/layout-dashboard.svg"
-                alt="Icono del tablero"
-            /></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/logout">
-              <img
-                src="../../../assets/icons/user-off.svg"
-                alt="Icono de cerrar sesión"
-              />
-            </a>
-          </li>
-          } @else {
           <li class="nav-item">
             <a class="nav-link" routerLink="/inicio-sesion"
               ><img src="../../../assets/icons/user.svg" alt="Icono de usuario"
             /></a>
           </li>
-          }
         </ul>
+        }
       </nav>
     </div>
   </nav>
