@@ -35,6 +35,9 @@
         </ul>
         <ul class="icons-nav">
           @if (isLoggedIn) {
+          <li class="nav-usr">
+              <span>{{ userEmail }}</span>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/carrito"
               ><img

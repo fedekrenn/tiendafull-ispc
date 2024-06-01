@@ -30,4 +30,7 @@ nav {
   .nav-item a.nav-link {
     color: white;
   }
+  .nav-usr {
+    color: rgb(169, 165, 165);
+  }
 }

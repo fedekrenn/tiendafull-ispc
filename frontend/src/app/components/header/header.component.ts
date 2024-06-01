@@ -12,12 +12,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
+  userEmail: string = '';
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.isLogged.subscribe((logged) => {
       this.isLoggedIn = logged;
+    });
+    this.authService.userEmail.subscribe((email) => {
+      this.userEmail = email;
     });
   }
 }
