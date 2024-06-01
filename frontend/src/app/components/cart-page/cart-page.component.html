@@ -1,16 +1,28 @@
 <main>
   <h1>Productos en el carrito:</h1>
-
+  @if (cartItems.length === 0) {
+  <section class="no-items">
+    <h2>No hay productos en el carrito!</h2>
+    <h3>
+      Puedes agregar uno navegando nuestro
+      <a [routerLink]="'/productos'">catálogo</a>
+    </h3>
+    <img
+      src="../../../assets/imgs/carrito-vacio.png"
+      alt="Imagen de un carrito de supermercado vacío"
+    />
+  </section>
+  } @else {
   <section class="items-container">
     @for (item of cartItems; track $index) {
-      <app-cart-item [item]="item"></app-cart-item>
+    <app-cart-item [item]="item"></app-cart-item>
     }
   </section>
-
   <div class="cart-total">
     <h2>Importe total:</h2>
     <h3>{{ totalAmount | currency : "$" : "symbol" : "1.2-2" }}</h3>
     <h4>Cantidad total de productos: {{ cartItems.length }}</h4>
     <button class="pay-btn">Comprar</button>
   </div>
+  }
 </main>
