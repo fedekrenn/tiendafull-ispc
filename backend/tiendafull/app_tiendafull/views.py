@@ -137,25 +137,29 @@ class CartViewSet(viewsets.ModelViewSet):
     def items(self, request):
         try:
             carrito = Cart.objects.get(email=request.user)
-            items = CartDetail.objects.filter(carrito=carrito)
-            serializer = CartDetailSerializer(items, many=True)
-            cart_response = {
-                "id_carrito": carrito.id,
-                "fecha_creacion": carrito.fecha,
-                "email": carrito.email.email,
-                "items": serializer.data,
-            }
-            return Response(cart_response)
         except Cart.DoesNotExist:
+            carrito, _ = Cart.objects.get_or_create(email=request.user)
+            # Si se crea un nuevo carrito, se devuelve un mensaje indicando que se creó
             return Response(
-                {"error": "Carrito no encontrado"}, status=status.HTTP_404_NOT_FOUND
+                {"message": "Carrito creado exitosamente"},
+                status=status.HTTP_201_CREATED
             )
+
+        items = CartDetail.objects.filter(carrito=carrito)
+        serializer = CartDetailSerializer(items, many=True)
+        cart_response = {
+            "id_carrito": carrito.id,
+            "fecha_creacion": carrito.fecha,
+            "email": carrito.email.email,
+            "items": serializer.data,
+        }
+        return Response(cart_response)
 
     @action(detail=False, methods=["delete"])
     def delete_item(self, request):
         item_id = request.data.get("item_id")
         try:
-            item = CartDetail.objects.get(id=item_id)
+            item = CartDetail.objects.get( id=item_id)
             item.delete()
             return Response({"message": "Ítem eliminado del carrito exitosamente"})
         except CartDetail.DoesNotExist:

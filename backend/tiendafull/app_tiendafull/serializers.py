@@ -129,7 +129,8 @@ class CartDetailSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     email = serializers.SerializerMethodField()
-
+    items = CartDetailSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Cart
         fields = "__all__"
