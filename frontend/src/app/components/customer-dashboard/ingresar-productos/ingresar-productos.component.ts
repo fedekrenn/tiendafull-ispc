@@ -39,14 +39,10 @@ export class IngresarProductosComponent implements OnInit {
   }
 
   obtenerProductos(): void {
-    this.producstService.getProducts().subscribe(
-      (data) => {
-        this.productos = data;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.producstService.getProducts().subscribe({
+      next: (data) => (this.productos = data),
+      error: (error) => console.error(error),
+    });
   }
 
   crearProducto(event: Event): void {
@@ -69,16 +65,14 @@ export class IngresarProductosComponent implements OnInit {
 
         console.log('Enviando al servidor...', nuevoProducto);
 
-        this.producstService.postProducts(nuevoProducto).subscribe(
-          (data) => {
+        this.producstService.postProducts(nuevoProducto).subscribe({
+          next: (data) => {
             console.log('Producto creado:', data);
             this.obtenerProductos();
             this.productoForm.reset();
           },
-          (error) => {
-            console.error(error);
-          }
-        );
+          error: (error) => console.error(error),
+        });
       } else {
         this.productoForm.markAllAsTouched();
       }

@@ -12,12 +12,15 @@ import { User, NewUser, UserResponse, LogoutResponse } from '../types/types';
 export class AuthService {
   public isLogged = new BehaviorSubject<boolean>(false);
   public isAdmin = new BehaviorSubject<boolean>(false);
+  public userEmail = new BehaviorSubject<string>(''); // Observable para almacenar el email del usuario
 
   constructor(private http: HttpClient) {}
 
   public login(user: User): Observable<UserResponse> {
     return this.http.post<UserResponse>(ENDPOINT + 'login/', user).pipe(
-      tap(() => {
+      tap((response) => { // Obtener el email del usuario de la respuesta del servidor
+        const userEmail = response.user.email!;
+        this.userEmail.next(userEmail); // Actualizar el email del usuario en el observable
         this.isLogged.next(true);
         if (user.is_staff !== undefined) {
           this.isAdmin.next(user.is_staff);

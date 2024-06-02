@@ -1,5 +1,6 @@
 header {
   font-family: "Roboto", sans-serif;
+  position: relative;
 }
 
 nav {
@@ -21,13 +22,27 @@ nav {
     background-color: #525f68;
     border-radius: 50%;
     padding: 5px;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
-    &:hover{
+    &:hover {
       filter: grayscale(1.6);
     }
   }
   .nav-item a.nav-link {
     color: white;
   }
+
+  .icons-container {
+    display: flex;
+    flex-direction: column;
+    color: rgb(169, 165, 165);
+  }
+}
+
+.user-name {
+  position: absolute;
+  color: rgb(169, 165, 165);
+  right: 10px;
+  top: 10px;
+  font-size: 11px;
 }
