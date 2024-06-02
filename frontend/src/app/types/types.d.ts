@@ -20,6 +20,7 @@ export interface Cart {
 }
 
 export interface Item {
+  id: number;
   cantidad: number;
   producto: Product;
 }

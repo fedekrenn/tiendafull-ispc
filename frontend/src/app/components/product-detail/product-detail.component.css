@@ -26,6 +26,36 @@
   min-height: 600px;
 }
 
+.inCantidad {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.item-cart-btn {
+  font-family: "Roboto", sans-serif;
+  padding: 10px;
+  border-width: 1px;
+  border-color: #58d62a;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 0px 1px 0px 0px #d0f9be;
+  text-shadow: 0px 1px 0px #c9dbc9;
+  background: linear-gradient(#b1f189, #6dcf46);
+  text-decoration: none;
+  svg {
+    color: rgb(27, 71, 11);
+    width: 2em;
+    height: 2em;
+  }
+}
+
+.item-cart-btn:hover {
+  background: #73ff16;
+  transition: 0.5s;
+}
+
 .product-section h2 {
   font-size: 1.5em;
 }
