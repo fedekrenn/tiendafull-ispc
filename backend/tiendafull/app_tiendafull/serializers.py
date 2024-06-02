@@ -121,6 +121,7 @@ class CartDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartDetail
         fields = [
+            "id",
             "cantidad",
             "producto",
         ]
