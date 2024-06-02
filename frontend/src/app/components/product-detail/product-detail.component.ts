@@ -1,42 +1,52 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { Product } from '../../types/types';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-producto',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoadingComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent implements OnInit {
   bike: Product = {} as Product;
-  cantidad: number = 1;
+  cantidad = 1;
+  loading = true;
+  isLoggedIn = false;
 
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getProduct();
+    this.authService.isLogged.subscribe((logged) => {
+      this.isLoggedIn = logged;
+    });
   }
 
   getProduct() {
     const productId = this.route.snapshot.paramMap.get('id');
-<<<<<<< HEAD
-
-    if(productId){
-=======
     if (productId) {
->>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
-      this.productsService.getProduct(Number(productId)).subscribe((data) => {
-        this.bike = data;
+      this.productsService.getProduct(Number(productId)).subscribe({
+        next: (data) => {
+          this.bike = data;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error al obtener el producto: ', error);
+          alert('Error al obtener el producto, por favor intenta de nuevo');
+        },
       });
     } else {
       console.error('El ID en la URL es indefinido o no es válido');
@@ -48,10 +58,6 @@ export class ProductDetailComponent implements OnInit {
       this.cartService.addItem(productId, this.cantidad).subscribe({
         next: (res) => {
           alert('Se agregó el producto al carrito.');
-<<<<<<< HEAD
-      
-=======
->>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
           console.log(res, productId, this.cantidad);
         },
         error: (error) => {

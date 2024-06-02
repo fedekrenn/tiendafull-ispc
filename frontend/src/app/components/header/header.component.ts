@@ -11,8 +11,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false;
-  userEmail: string = '';
+  isLoggedIn = false;
+  userEmail = '';
 
   constructor(private authService: AuthService) {}
 
