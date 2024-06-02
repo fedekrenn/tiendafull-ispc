@@ -21,8 +21,9 @@ export class ProductDetailComponent {
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
-    this.productsService.getProduct(Number(productId)).subscribe((data) => {
-      this.bike = data;
+    this.productsService.getProduct(Number(productId)).subscribe({
+      next: (data) => (this.bike = data),
+      error: (error) => console.error(error),
     });
   }
 }
