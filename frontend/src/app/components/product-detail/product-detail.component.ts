@@ -39,14 +39,12 @@ export class ProductDetailComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
       this.productsService.getProduct(Number(productId)).subscribe({
-        next: (data) => {
-          this.bike = data;
-          this.loading = false;
-        },
+        next: (data) => (this.bike = data),
         error: (error) => {
           console.error('Error al obtener el producto: ', error);
           alert('Error al obtener el producto, por favor intenta de nuevo');
         },
+        complete: () => (this.loading = false),
       });
     } else {
       console.error('El ID en la URL es indefinido o no es válido');
