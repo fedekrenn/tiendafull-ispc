@@ -17,6 +17,7 @@ export interface Cart {
   fecha_creacion: string;
   email: string;
   items: Item[];
+  message?: string;
 }
 
 export interface Item {

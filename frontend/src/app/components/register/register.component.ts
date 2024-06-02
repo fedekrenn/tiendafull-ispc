@@ -152,7 +152,6 @@ export class RegisterComponent {
       this.authService.register(newUser).subscribe({
         next: (res) => {
           if (res.token) {
-            sessionStorage.setItem('token', res.token);
             alert('Usuario registrado');
             this.router.navigate(['/']);
           }

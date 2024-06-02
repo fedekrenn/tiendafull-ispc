@@ -44,9 +44,9 @@ export class IngresarProductosComponent implements OnInit {
     this.producstService.getProducts().subscribe({
       next: (data) => {
         this.productos = data;
-        this.isLoading = false;
       },
       error: (error) => console.error(error),
+      complete: () => (this.isLoading = false),
     });
   }
 
