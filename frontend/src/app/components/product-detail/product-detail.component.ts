@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../types/types';
-import { producerNotifyConsumers } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-producto',
@@ -14,14 +13,13 @@ import { producerNotifyConsumers } from '@angular/core/primitives/signals';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
-export class ProductDetailComponent implements OnInit{
+export class ProductDetailComponent implements OnInit {
   bike: Product = {} as Product;
   cantidad: number = 1;
 
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
-    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -31,8 +29,12 @@ export class ProductDetailComponent implements OnInit{
 
   getProduct() {
     const productId = this.route.snapshot.paramMap.get('id');
+<<<<<<< HEAD
 
     if(productId){
+=======
+    if (productId) {
+>>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
       this.productsService.getProduct(Number(productId)).subscribe((data) => {
         this.bike = data;
       });
@@ -41,12 +43,15 @@ export class ProductDetailComponent implements OnInit{
     }
   }
 
-  addItemCart(productId:number | undefined) {
+  addItemCart(productId: number | undefined) {
     if (productId) {
       this.cartService.addItem(productId, this.cantidad).subscribe({
-        next:(res)=> {
+        next: (res) => {
           alert('Se agregó el producto al carrito.');
+<<<<<<< HEAD
       
+=======
+>>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
           console.log(res, productId, this.cantidad);
         },
         error: (error) => {

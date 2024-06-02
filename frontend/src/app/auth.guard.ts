@@ -10,3 +10,13 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 };
+
+export const loginGuard: CanActivateFn = (route, state) => {
+  const isAuthenticated = sessionStorage.getItem('token') !== null;
+  if (isAuthenticated) {
+    return true;
+  } else {
+    alert('Debes estar logueado para acceder a esta sección');
+    return false;
+  }
+};

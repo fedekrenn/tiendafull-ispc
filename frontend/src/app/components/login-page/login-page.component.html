@@ -24,7 +24,7 @@
             @if (username?.errors && username?.touched) { @if
             (username?.hasError('required')) {
             <p class="text-danger">El email es requerido.</p>
-            } @else if (username?.hasError('username')) {
+            } @else if (username?.hasError('email')) {
             <p class="text-danger">El formato del email debe ser válido.</p>
             } }
           </div>
