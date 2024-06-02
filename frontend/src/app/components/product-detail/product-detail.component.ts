@@ -29,12 +29,7 @@ export class ProductDetailComponent implements OnInit {
 
   getProduct() {
     const productId = this.route.snapshot.paramMap.get('id');
-<<<<<<< HEAD
-
-    if(productId){
-=======
     if (productId) {
->>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
       this.productsService.getProduct(Number(productId)).subscribe((data) => {
         this.bike = data;
       });
@@ -48,10 +43,6 @@ export class ProductDetailComponent implements OnInit {
       this.cartService.addItem(productId, this.cantidad).subscribe({
         next: (res) => {
           alert('Se agregó el producto al carrito.');
-<<<<<<< HEAD
-      
-=======
->>>>>>> e3627ed85031c8416ecae360a3771a3451a8a052
           console.log(res, productId, this.cantidad);
         },
         error: (error) => {
