@@ -38,4 +38,12 @@ export class CartService {
 
     return this.http.delete(ENDPOINT + 'cart/delete_item/', { headers, body: {"item_id":itemId } } );
   }
-}
+
+  public confirmarCompra():Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Token ${token}`)
+      .set('Content-Type', 'application/json');
+
+    return this.http.post(ENDPOINT + 'purchase/',{}, { headers } );
+}}

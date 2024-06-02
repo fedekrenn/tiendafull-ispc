@@ -31,4 +31,28 @@ export class CartPageComponent {
       error: (error) => console.error(error),
     });
   }
+  onDeleteItem(itemId: number) {
+    
+    this.cartItems = this.cartItems.filter(item => item.id !== itemId);
+  
+    this.totalAmount = this.cartItems.reduce((acc, item) => acc + item.cantidad * item.producto.precio, 0);
+  }
+  realizarCompra() {
+    this.cartService.confirmarCompra().subscribe({
+      next: (response) => {
+        console.log('Compra realizada:', response);
+        alert(`Compra realizada, Numero de Factura  ${response.purchase.nro_factura}`)
+   
+      },
+      error: (error) => {
+        console.error('Error al realizar la compra:', error);
+      
+      }
+    }
+  
+  );
+ 
+
+
+  }
 }

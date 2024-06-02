@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import type { Item } from '../../types/types';
 
@@ -13,7 +13,8 @@ import type { Item } from '../../types/types';
 })
 export class CartItemComponent {
   @Input() item: Item | undefined;
-  constructor(private cartService: CartService, private router: Router) {}
+  @Output() itemDeleted: EventEmitter<number> = new EventEmitter<number>();
+  constructor(private cartService: CartService) {}
 
 
 
@@ -22,8 +23,9 @@ export class CartItemComponent {
       this.cartService.deleteItem(itemId).subscribe({
         next:(res)=> {
           alert('Se eliminó el producto del carrito');
-          this.router.navigate(['/carrito']);
+          this.itemDeleted.emit(itemId);
           console.log(res);
+         
         },
         error: (error) => {
           console.error('Error al eliminar producto: ', error);
