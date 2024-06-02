@@ -1,6 +1,10 @@
 <main>
   <h1>Productos en el carrito:</h1>
-  @if (cartItems.length === 0) {
+  @if (isLoading) {
+  <div class="spinner-container">
+    <app-loading></app-loading>
+  </div>
+  } @else { @if (cartItems.length === 0) {
   <section class="no-items">
     <h2>No hay productos en el carrito!</h2>
     <h3>
@@ -24,5 +28,5 @@
     <h4>Cantidad total de productos: {{ cartItems.length }}</h4>
     <button class="pay-btn">Comprar</button>
   </div>
-  }
+  } }
 </main>

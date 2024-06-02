@@ -40,3 +40,9 @@ img {
   height: auto;
   margin-top: 20px;
 }
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
