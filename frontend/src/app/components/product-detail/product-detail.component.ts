@@ -13,7 +13,7 @@ import { Product } from '../../types/types';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
-export class ProductDetailComponent implements OnInit{
+export class ProductDetailComponent implements OnInit {
   bike: Product = {} as Product;
   cantidad: number = 1;
 
@@ -29,7 +29,7 @@ export class ProductDetailComponent implements OnInit{
 
   getProduct() {
     const productId = this.route.snapshot.paramMap.get('id');
-    if(productId){
+    if (productId) {
       this.productsService.getProduct(Number(productId)).subscribe((data) => {
         this.bike = data;
       });
@@ -38,10 +38,10 @@ export class ProductDetailComponent implements OnInit{
     }
   }
 
-  addItemCart(productId:number | undefined) {
+  addItemCart(productId: number | undefined) {
     if (productId) {
       this.cartService.addItem(productId, this.cantidad).subscribe({
-        next:(res)=> {
+        next: (res) => {
           alert('Se agregó el producto al carrito.');
           console.log(res, productId, this.cantidad);
         },

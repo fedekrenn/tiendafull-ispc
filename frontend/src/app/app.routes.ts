@@ -15,7 +15,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { LogoutPageComponent } from './components/logout-page/logout-page.component';
 import { IngresarProductosComponent } from './components/customer-dashboard/ingresar-productos/ingresar-productos.component';
-import { authGuard } from './auth.guard';
+import { authGuard, loginGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'inicio', component: LandingPageComponent },
@@ -35,13 +35,14 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
     ],
+    canActivate: [loginGuard],
   },
   { path: 'registro', component: RegisterComponent },
-  { path: 'logout', component: LogoutPageComponent },
+  { path: 'logout', component: LogoutPageComponent, canActivate: [loginGuard] },
   { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
   { path: 'contacto', component: ContactPageComponent },
   { path: 'acerca-de-nosotros', component: AboutUsComponent },
-  { path: 'carrito', component: CartPageComponent },
+  { path: 'carrito', component: CartPageComponent, canActivate: [loginGuard] },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent },
 ];
