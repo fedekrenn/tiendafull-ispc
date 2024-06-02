@@ -5,17 +5,19 @@ import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../../services/products.service';
 import { RouterModule } from '@angular/router';
 import { Product } from '../../../types/types';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
   selector: 'app-ingresar-productos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LoadingComponent],
   templateUrl: './ingresar-productos.component.html',
   styleUrl: './ingresar-productos.component.css',
 })
 export class IngresarProductosComponent implements OnInit {
   productos: any[] = [];
   productoForm!: FormGroup;
+  isLoading = true;
 
   constructor(
     private producstService: ProductsService,
@@ -40,8 +42,11 @@ export class IngresarProductosComponent implements OnInit {
 
   obtenerProductos(): void {
     this.producstService.getProducts().subscribe({
-      next: (data) => (this.productos = data),
+      next: (data) => {
+        this.productos = data;
+      },
       error: (error) => console.error(error),
+      complete: () => (this.isLoading = false),
     });
   }
 

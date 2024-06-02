@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -16,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [NgIf, RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -153,7 +152,6 @@ export class RegisterComponent {
       this.authService.register(newUser).subscribe({
         next: (res) => {
           if (res.token) {
-            sessionStorage.setItem('token', res.token);
             alert('Usuario registrado');
             this.router.navigate(['/']);
           }

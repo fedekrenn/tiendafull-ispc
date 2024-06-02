@@ -14,18 +14,16 @@ import type { Item } from '../../types/types';
 export class CartItemComponent {
   @Input() item: Item | undefined;
   @Output() itemDeleted: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private cartService: CartService) {}
 
-
-
   deleteItem(itemId: number | undefined) {
-    if(itemId){
+    if (itemId) {
       this.cartService.deleteItem(itemId).subscribe({
-        next:(res)=> {
+        next: (res) => {
           alert('Se eliminó el producto del carrito');
           this.itemDeleted.emit(itemId);
           console.log(res);
-         
         },
         error: (error) => {
           console.error('Error al eliminar producto: ', error);

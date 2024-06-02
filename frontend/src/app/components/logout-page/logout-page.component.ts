@@ -16,8 +16,6 @@ export class LogoutPageComponent {
     this.authService.logout().subscribe({
       next: (res) => {
         alert('Has sido desconectado correctamente! Hasta la próxima!');
-        console.log(res);
-        this.authService.clearToken();
         this.router.navigate(['/inicio']);
       },
       error: (error) => {

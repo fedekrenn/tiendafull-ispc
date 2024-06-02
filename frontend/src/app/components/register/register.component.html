@@ -28,22 +28,18 @@
             placeholder="miusuario"
             required
           />
-          <div
-            *ngIf="
-              username &&
-              username.invalid &&
-              (username.dirty || username.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="username.errors?.['required']">
-              El nombre de usuario es un campo requerido.
-            </div>
-            <div *ngIf="username.errors?.['minlength']">
-              El nombre de usuario debe tener al menos 3 caracteres.
-            </div>
+          @if (username && username.invalid && (username.dirty ||
+          username.touched)) {
+          <div class="alert alert-danger">
+            @if (username.errors?.['required']) {
+            <div>El nombre de usuario es un campo requerido.</div>
+            } @if (username.errors?.['minlength']) {
+            <div>El nombre de usuario debe tener al menos 3 caracteres.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="first_name" class="form-label"
           >Nombre:
           <input
@@ -55,18 +51,18 @@
             placeholder="Jose"
             required
           />
-          <div
-            *ngIf="first_name && first_name.invalid && (first_name.dirty || first_name.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="first_name.errors?.['required']">
-              Nombre es un campo requerido.
-            </div>
-            <div *ngIf="first_name.errors?.['minlength']">
-              El nombre debe tener al menos 3 caracteres.
-            </div>
+          @if (first_name && first_name.invalid && (first_name.dirty ||
+          first_name.touched)) {
+          <div class="alert alert-danger">
+            @if (first_name.errors?.['required']) {
+            <div>Nombre es un campo requerido.</div>
+            } @if (first_name.errors?.['minlength']) {
+            <div>El nombre debe tener al menos 3 caracteres.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="last_name" class="form-label"
           >Apellido:
           <input
@@ -78,22 +74,18 @@
             placeholder="Hernandez"
             required
           />
-          <div
-            *ngIf="
-              last_name &&
-              last_name.invalid &&
-              (last_name.dirty || last_name.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="last_name.errors?.['required']">
-              Apellido es un campo requerido.
-            </div>
-            <div *ngIf="last_name.errors?.['minlength']">
-              El apellido debe tener al menos 3 caracteres.
-            </div>
+          @if (last_name && last_name.invalid && (last_name.dirty ||
+          last_name.touched)) {
+          <div class="alert alert-danger">
+            @if (last_name.errors?.['required']) {
+            <div>Apellido es un campo requerido.</div>
+            } @if (last_name.errors?.['minlength']) {
+            <div>El apellido debe tener al menos 3 caracteres.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="nro_documento" class="form-label"
           >DNI:
           <input
@@ -105,24 +97,20 @@
             placeholder="Ej: 20111222"
             required
           />
-          <div
-            *ngIf="
-              nro_documento &&
-              nro_documento.invalid &&
-              (nro_documento.dirty || nro_documento.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="nro_documento.errors?.['required']">
-              DNI es un campo requerido.
-            </div>
-            <div
-              *ngIf="nro_documento.errors?.['min'] || nro_documento.errors?.['max']"
-            >
-              El DNI debe tener 7 u 8 caracteres.
-            </div>
+          @if (nro_documento && nro_documento.invalid && (nro_documento.dirty ||
+          nro_documento.touched)) {
+          <div class="alert alert-danger">
+            @if (nro_documento.errors?.['required']) {
+            <div>DNI es un campo requerido.</div>
+            } @if (nro_documento.errors?.['min']) {
+            <div>El DNI debe tener 7 u 8 caracteres.</div>
+            } @if (nro_documento.errors?.['max']) {
+            <div>El DNI debe tener 7 u 8 caracteres.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="telefono" class="form-label"
           >Teléfono:
           <input
@@ -134,22 +122,18 @@
             required
             placeholder="Código de área sin el 0 y número sin el 15"
           />
-          <div
-            *ngIf="
-              telefono &&
-              telefono.invalid &&
-              (telefono.dirty || telefono.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="telefono.errors?.['required']">
-              Teléfono es un campo requerido.
-            </div>
-            <div *ngIf="telefono.errors?.['pattern']">
-              El teléfono debe tener 10 números Ej:3512543876.
-            </div>
+          @if (telefono && telefono.invalid && (telefono.dirty ||
+          telefono.touched)) {
+          <div class="alert alert-danger">
+            @if (telefono.errors?.['required']) {
+            <div>Teléfono es un campo requerido.</div>
+            } @if (telefono.errors?.['pattern']) {
+            <div>El teléfono debe tener 10 números Ej:3512543876.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="email" class="form-label"
           >Email:
           <input
@@ -161,18 +145,17 @@
             placeholder="joseh@gmail.com"
             required
           />
-          <div
-            *ngIf="email && email.invalid && (email.dirty || email.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="email.errors?.['required']">
-              Email es un campo requerido.
-            </div>
-            <div *ngIf="email.errors?.['email']">
-              El formato del email debe ser válido.
-            </div>
+          @if (email && email.invalid && (email.dirty || email.touched)) {
+          <div class="alert alert-danger">
+            @if (email.errors?.['required']) {
+            <div>Email es un campo requerido.</div>
+            } @if (email.errors?.['email']) {
+            <div>El formato del email debe ser válido.</div>
+            }
           </div>
+          }
         </label>
+
         <label for="pass1" class="form-label"
           >Contraseña:
           <input
@@ -183,24 +166,21 @@
             formControlName="password1"
             required
           />
-          <div
-            *ngIf="
-              password1 &&
-              password1.invalid &&
-              (password1.dirty || password1.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="password1.errors?.['required']">
-              Contraseña es un campo requerido.
-            </div>
-            <div
-              *ngIf="password1.errors?.['minlength'] || password1.errors?.['maxlength']"
-            >
+          @if (password1 && password1.invalid && (password1.dirty ||
+          password1.touched)) {
+          <div class="alert alert-danger">
+            @if (password1.errors?.['required']) {
+            <div>Contraseña es un campo requerido.</div>
+            } @if (password1.errors?.['minlength'] ||
+            password1.errors?.['maxlength']) {
+            <div>
               El formato de la contraseña debe ser entre 6 y 20 caracteres.
             </div>
+            }
           </div>
+          }
         </label>
+
         <label for="pass2" class="form-label"
           >Repetir contraseña:
           <input
@@ -211,31 +191,24 @@
             formControlName="password2"
             required
           />
-          <div
-            *ngIf="
-              password2 &&
-              password2.invalid &&
-              (password2.dirty || password2.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="password2.errors?.['required']">
-              Contraseña es un campo requerido.
-            </div>
-            <div
-              *ngIf="password2.errors?.['minlength'] || password2.errors?.['maxlength']"
-            >
+          @if (password2 && password2.invalid && (password2.dirty ||
+          password2.touched)) {
+          <div class="alert alert-danger">
+            @if (password2.errors?.['required']) {
+            <div>Contraseña es un campo requerido.</div>
+            } @if (password2.errors?.['minlength'] ||
+            password2.errors?.['maxlength']) {
+            <div>
               El formato de la contraseña debe ser entre 6 y 20 caracteres.
             </div>
+            }
           </div>
+          } @if (form && form.errors?.['notEqualPassword'] && (form.touched ||
+          form.dirty)) {
+          <div class="alert alert-danger">Las contraseñas NO coinciden.</div>
+          }
         </label>
-        <div
-          *ngIf="form && form.errors?.['notEqualPassword'] &&
-          (form.touched || form.dirty)"
-          class="alert alert-danger"
-        >
-          Las contraseñas NO coinciden.
-        </div>
+
         <button type="submit" [disabled]="!form.valid" class="btn btn-primary">
           Crear cuenta
         </button>

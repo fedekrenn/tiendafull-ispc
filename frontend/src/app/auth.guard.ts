@@ -1,8 +1,10 @@
 import { CanActivateFn } from '@angular/router';
+import Cookies from 'universal-cookie';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
-  const isAuthenticated = sessionStorage.getItem('token') !== null;
+  const cookies = new Cookies();
+  const isAdmin = cookies.get('isAdmin');
+  const isAuthenticated = cookies.get('token');
   if (isAuthenticated && isAdmin) {
     return true;
   } else {
@@ -12,7 +14,8 @@ export const authGuard: CanActivateFn = (route, state) => {
 };
 
 export const loginGuard: CanActivateFn = (route, state) => {
-  const isAuthenticated = sessionStorage.getItem('token') !== null;
+  const cookies = new Cookies();
+  const isAuthenticated = cookies.get('token');
   if (isAuthenticated) {
     return true;
   } else {
