@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
 import { CartService } from '../../services/cart.service';
 import type { Item } from '../../types/types';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart-page',
@@ -53,8 +54,13 @@ export class CartPageComponent {
           `Compra realizada, Numero de Factura  ${response.purchase.nro_factura}`
         );
       },
-      error: (error) => {
-        console.error('Error al realizar la compra:', error);
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 400 && error.error && error.error.error) {
+          alert(error.error.error);
+        } else {
+          console.error('Error al realizar la compra:', error);
+          alert('Ocurrió un error al realizar la compra, por favor intenta de nuevo.');
+        }
       },
     });
   }

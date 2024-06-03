@@ -7,6 +7,7 @@ import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { Product } from '../../types/types';
 import { LoadingComponent } from '../loading/loading.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-producto',
@@ -58,13 +59,13 @@ export class ProductDetailComponent implements OnInit {
           alert('Se agregó el producto al carrito.');
           console.log(res, productId, this.cantidad);
         },
-        error: (error) => {
-          console.error('Error al agregar el producto al carrito: ', error);
-          alert('Error al agregar el producto, por favor intenta de nuevo');
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 400 && error.error && error.error.error) {
+            alert(error.error.error);
+          } else {
+            console.error('Error al realizar la compra:', error);
+          alert('Ocurrió un error al realizar la compra, por favor intenta de nuevo.');
+          }
         },
       });
-    } else {
-      console.error('El ID del producto es indefinido');
-    }
-  }
-}
+    }}}
