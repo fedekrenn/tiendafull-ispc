@@ -53,3 +53,19 @@ export interface UserResponse {
 export interface LogoutResponse {
   message: string;
 }
+
+export interface PurchaseResponse {
+  id: number;
+  fecha: string;
+  email: string;
+  modo_pago: string;
+  nro_factura: string;
+  total: number;
+  detalle: PurchaseDetail[];
+}
+
+export interface PurchaseDetail {
+  cantidad: number;
+  precio_compra: number;
+  producto: Product;
+}

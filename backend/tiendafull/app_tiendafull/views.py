@@ -214,7 +214,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             compra = Purchase.objects.create(
                 nro_factura=generate_invoice_number(),
                 email=request.user,
-                modo_pago_id=request.data.get("modo_pago"),
+                modo_pago_id=1,  # Por corregir
                 total=total,
             )
 

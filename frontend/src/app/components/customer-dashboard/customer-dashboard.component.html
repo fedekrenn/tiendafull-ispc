@@ -1,10 +1,8 @@
-<main class="container">
-  <section>
-    @if (isAdmin) {
-    <h1>Panel de administrador</h1>
-    <app-ingresar-productos></app-ingresar-productos>
-    } @else {
-    <h1>Hola memo!</h1>
-    }
-  </section>
+<main>
+  @if (isAdmin) {
+  <h1>Panel de administrador</h1>
+  <app-ingresar-productos></app-ingresar-productos>
+  } @else {
+  <app-purchase-history></app-purchase-history>
+  }
 </main>

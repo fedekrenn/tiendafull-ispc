@@ -76,6 +76,12 @@ class ColorTypeSerializer(serializers.ModelSerializer):
         fields = ["id", "descripcion"]
 
 
+class PaymentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentModeType
+        fields = ["id", "descripcion"]
+
+
 class ProductSerializer(serializers.ModelSerializer):
     marca = serializers.SerializerMethodField()
     rodado = serializers.SerializerMethodField()
@@ -136,23 +142,40 @@ class CartSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PurchaseSerializer(serializers.ModelSerializer):
-    email = serializers.SerializerMethodField()
-
-    def get_email(self, object):
-        return object.email.email
-
-    class Meta:
-        model = Purchase
-        fields = "__all__"
-
-
 class PurchaseDetailSerializer(serializers.ModelSerializer):
     producto = ProductSerializer()
 
     class Meta:
         model = PurchaseDetail
-        fields = ["id", "compra", "producto", "cantidad", "precio_compra"]
+        fields = ["producto", "cantidad", "precio_compra"]
+
+
+class PurchaseSerializer(serializers.ModelSerializer):
+    email = serializers.SerializerMethodField()
+    modo_pago = serializers.SerializerMethodField()
+    detalle = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Purchase
+        fields = [
+            "id",
+            "nro_factura",
+            "email",
+            "modo_pago",
+            "total",
+            "fecha",
+            "detalle",
+        ]
+
+    def get_email(self, object):
+        return object.email.email
+
+    def get_modo_pago(self, object):
+        return object.modo_pago.descripcion if object.modo_pago else None
+
+    def get_detalle(self, object):
+        details = PurchaseDetail.objects.filter(compra=object)
+        return PurchaseDetailSerializer(details, many=True).data
 
 
 class DeliverySerializer(serializers.ModelSerializer):
