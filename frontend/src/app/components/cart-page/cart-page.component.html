@@ -27,7 +27,6 @@
     <div class="cart-total">
       <h2>Importe total:</h2>
       <h3>{{ totalAmount | currency : "$" : "symbol" : "1.2-2" }}</h3>
-      <h4>Cantidad total de productos: {{ cartItems.length }}</h4>
       <button  class="pay-btn" (click)="realizarCompra()">Comprar</button>
     </div>
     } }
