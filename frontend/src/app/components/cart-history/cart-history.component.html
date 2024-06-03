@@ -1,0 +1,11 @@
+<div *ngIf="lastPurchaseDetails">
+    <p>Detalles de la última compra:</p>
+    <ul>
+      <li>Número de pedido: {{lastPurchaseDetails.orderNumber}}</li>
+      <li>
+        Productos comprados: {{lastPurchaseDetails.products}}
+      </li>
+      <li>Importe total: {{lastPurchaseDetails.totalAmount}}</li>
+    </ul>
+  </div>
+  
