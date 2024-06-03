@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PurchaseResponse } from '../../types/types';
 
 @Component({
   selector: 'app-cart-history',
@@ -9,5 +10,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cart-history.component.css',
 })
 export class CartHistoryComponent {
-  @Input() purchase: any | undefined;
+  @Input() purchase: PurchaseResponse = {} as PurchaseResponse;
 }

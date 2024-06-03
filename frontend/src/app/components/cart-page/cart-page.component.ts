@@ -4,17 +4,20 @@ import { CartItemComponent } from '../cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
 import { CartService } from '../../services/cart.service';
-import type { Item } from '../../types/types';
-
+import type { Item, PurchaseResponse } from '../../types/types';
 import { HttpErrorResponse } from '@angular/common/http';
-
 import { CartHistoryComponent } from '../cart-history/cart-history.component';
-
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [CartItemComponent, CommonModule, RouterLink, LoadingComponent, CartHistoryComponent],
+  imports: [
+    CartItemComponent,
+    CommonModule,
+    RouterLink,
+    LoadingComponent,
+    CartHistoryComponent,
+  ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css',
 })
@@ -23,7 +26,7 @@ export class CartPageComponent {
   totalAmount = 0;
   isLoading = true;
   purchaseConfirmed = false;
-  purchase: any | undefined;
+  purchase: PurchaseResponse = {} as PurchaseResponse;
 
   constructor(private cartService: CartService) {}
 
@@ -56,7 +59,9 @@ export class CartPageComponent {
     this.cartService.confirmarCompra().subscribe({
       next: (response) => {
         console.log('Compra realizada:', response);
-        alert(`Compra realizada, Numero de Factura ${response.purchase.nro_factura}`);
+        alert(
+          `Compra realizada, Numero de Factura ${response.purchase.nro_factura}`
+        );
         this.purchase = response.purchase;
         this.purchaseConfirmed = true;
       },
@@ -65,7 +70,9 @@ export class CartPageComponent {
           alert(error.error.error);
         } else {
           console.error('Error al realizar la compra:', error);
-          alert('Ocurrió un error al realizar la compra, por favor intenta de nuevo.');
+          alert(
+            'Ocurrió un error al realizar la compra, por favor intenta de nuevo.'
+          );
         }
       },
     });

@@ -47,7 +47,7 @@ export interface User {
 export interface UserResponse {
   user: User;
   token: string;
-  is_staff: any;
+  is_staff: boolean;
 }
 
 export interface LogoutResponse {

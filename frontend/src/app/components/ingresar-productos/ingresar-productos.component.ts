@@ -15,7 +15,7 @@ import { LoadingComponent } from '../loading/loading.component';
   styleUrl: './ingresar-productos.component.css',
 })
 export class IngresarProductosComponent implements OnInit {
-  productos: any[] = [];
+  productos: Product[] = [];
   productoForm!: FormGroup;
   isLoading = true;
 
