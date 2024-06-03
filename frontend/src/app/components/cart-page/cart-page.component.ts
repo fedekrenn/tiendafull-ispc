@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
 import { CartService } from '../../services/cart.service';
 import type { Item } from '../../types/types';
+import { CartHistoryComponent } from '../cart-history/cart-history.component';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [CartItemComponent, CommonModule, RouterLink, LoadingComponent],
+  imports: [CartItemComponent, CommonModule, RouterLink, LoadingComponent, CartHistoryComponent],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css',
 })
@@ -17,6 +18,8 @@ export class CartPageComponent {
   cartItems: Item[] = [];
   totalAmount = 0;
   isLoading = true;
+  purchaseConfirmed = false;
+  purchase: any | undefined;
 
   constructor(private cartService: CartService) {}
 
@@ -49,9 +52,9 @@ export class CartPageComponent {
     this.cartService.confirmarCompra().subscribe({
       next: (response) => {
         console.log('Compra realizada:', response);
-        alert(
-          `Compra realizada, Numero de Factura  ${response.purchase.nro_factura}`
-        );
+        alert(`Compra realizada, Numero de Factura ${response.purchase.nro_factura}`);
+        this.purchase = response.purchase;
+        this.purchaseConfirmed = true;
       },
       error: (error) => {
         console.error('Error al realizar la compra:', error);

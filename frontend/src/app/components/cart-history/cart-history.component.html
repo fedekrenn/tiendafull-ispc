@@ -1,11 +1,9 @@
-<div *ngIf="lastPurchaseDetails">
-    <p>Detalles de la última compra:</p>
-    <ul>
-      <li>Número de pedido: {{lastPurchaseDetails.orderNumber}}</li>
-      <li>
-        Productos comprados: {{lastPurchaseDetails.products}}
-      </li>
-      <li>Importe total: {{lastPurchaseDetails.totalAmount}}</li>
-    </ul>
-  </div>
-  
+<div *ngIf="purchase">
+  <h2>Detalles de la compra</h2>
+  <p>Fecha: {{ purchase.fecha}}</p>
+  <p>Total: {{ purchase.total }}</p>
+  <p>Número de factura: {{ purchase.nro_factura
+  }}</p>
+ 
+
+</div>
