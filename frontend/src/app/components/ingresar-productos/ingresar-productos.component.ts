@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../../../services/products.service';
+import { ProductsService } from '../../services/products.service';
 import { RouterModule } from '@angular/router';
-import { Product } from '../../../types/types';
-import { LoadingComponent } from '../../loading/loading.component';
+import { Product } from '../../types/types';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-ingresar-productos',

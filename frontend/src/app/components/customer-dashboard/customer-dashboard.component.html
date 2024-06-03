@@ -1,20 +1,10 @@
 <main class="container">
-  <h1>Dashboard</h1>
-  <div class="btn-group" role="group">
-    <button class="btn btn-primary" routerLink="/panel-de-control/detalles">
-      Mostrar Detalles
-    </button>
-    <button class="btn btn-primary" routerLink="/panel-de-control/envio">
-      Mostrar Envío
-    </button>
-    <button class="btn btn-primary" routerLink="/panel-de-control/historial">
-      Mostrar Historial
-    </button>
-    <button class="btn btn-primary" routerLink="/panel-de-control/ingresar-productos">
-      Ingresar Productos
-    </button>
-  </div>
-  <div class="router-container">
-    <router-outlet></router-outlet>
-  </div>
+  <section>
+    @if (isAdmin) {
+    <h1>Panel de administrador</h1>
+    <app-ingresar-productos></app-ingresar-productos>
+    } @else {
+    <h1>Hola memo!</h1>
+    }
+  </section>
 </main>

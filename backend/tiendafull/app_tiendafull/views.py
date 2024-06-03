@@ -17,6 +17,7 @@ from django.db.models import Sum, F
 from .utils import generate_invoice_number
 from django.shortcuts import get_object_or_404
 
+
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
 
@@ -121,12 +122,13 @@ class CartViewSet(viewsets.ModelViewSet):
             carrito, _ = Cart.objects.get_or_create(email=request.user)
 
             producto = get_object_or_404(Product, pk=id_producto)
-            
-            
+
             if producto.stock < cantidad:
                 return Response(
-                    {"error": f"No hay suficiente stock para {producto.modelo}, stock actual : {producto.stock} unidades"},
-                    status=status.HTTP_400_BAD_REQUEST
+                    {
+                        "error": f"No hay suficiente stock para {producto.modelo}, stock actual : {producto.stock} unidades"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
             item, item_created = CartDetail.objects.get_or_create(
                 carrito=carrito, producto=producto, defaults={"cantidad": cantidad}
@@ -151,7 +153,7 @@ class CartViewSet(viewsets.ModelViewSet):
             # Si se crea un nuevo carrito, se devuelve un mensaje indicando que se creó
             return Response(
                 {"message": "Carrito creado exitosamente"},
-                status=status.HTTP_201_CREATED
+                status=status.HTTP_201_CREATED,
             )
 
         items = CartDetail.objects.filter(carrito=carrito)
@@ -168,7 +170,7 @@ class CartViewSet(viewsets.ModelViewSet):
     def delete_item(self, request):
         item_id = request.data.get("item_id")
         try:
-            item = CartDetail.objects.get( id=item_id)
+            item = CartDetail.objects.get(id=item_id)
             item.delete()
             return Response({"message": "Ítem eliminado del carrito exitosamente"})
         except CartDetail.DoesNotExist:
@@ -176,30 +178,44 @@ class CartViewSet(viewsets.ModelViewSet):
                 {"error": "Ítem no encontrado en el carrito"},
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+
 class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
     permission_classes = [IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
+    @action(detail=False, methods=["get"])
+    def user_purchases(self, request):
+        purchases = Purchase.objects.filter(email=request.user)
+        serializer = PurchaseSerializer(purchases, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["post"])
+    def confirm_purchase(self, request, *args, **kwargs):
         try:
-        
+
             carrito = Cart.objects.get(email=request.user)
 
-          
-            total = carrito.items.aggregate(total=Sum(F('producto__precio') * F('cantidad')))['total']
+            total = carrito.items.aggregate(
+                total=Sum(F("producto__precio") * F("cantidad"))
+            )["total"]
 
             for item in carrito.items.all():
                 if item.producto.stock < item.cantidad:
-                    return Response({'error': f"No hay suficiente stock para {item.producto.modelo}, stock actual : {item.producto.stock} unidades"}, status=status.HTTP_400_BAD_REQUEST)
-            
+                    return Response(
+                        {
+                            "error": f"No hay suficiente stock para {item.producto.modelo}, stock actual : {item.producto.stock} unidades"
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+
             # Crear la compra
             compra = Purchase.objects.create(
-                nro_factura=generate_invoice_number(), 
+                nro_factura=generate_invoice_number(),
                 email=request.user,
-                modo_pago_id=request.data.get('modo_pago'),
-                total=total
-         
+                modo_pago_id=request.data.get("modo_pago"),
+                total=total,
             )
 
             purchase_details = []
@@ -208,38 +224,38 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                     cantidad=item.cantidad,
                     compra=compra,
                     producto=item.producto,
-                    precio_compra=item.producto.precio 
+                    precio_compra=item.producto.precio,
                 )
                 purchase_details.append(detail)
 
             for item in carrito.items.all():
                 item.producto.stock -= item.cantidad
                 item.producto.save()
-          
+
             carrito.items.all().delete()
 
-          
             purchase_data = PurchaseSerializer(compra).data
             details_data = PurchaseDetailSerializer(purchase_details, many=True).data
 
-        
             response_data = {
-                'message': 'Compra realizada exitosamente',
-                'purchase': purchase_data,
-                'details': details_data
+                "message": "Compra realizada exitosamente",
+                "purchase": purchase_data,
+                "details": details_data,
             }
 
             return Response(response_data)
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class DeliveryViewSet(viewsets.ModelViewSet):
     queryset = Delivery.objects.all()
     serializer_class = DeliverySerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(compra=self.request.data['compra'])
+        serializer.save(compra=self.request.data["compra"])
+
 
 class PurchaseDetailViewSet(viewsets.ModelViewSet):
     queryset = PurchaseDetail.objects.all()

@@ -54,6 +54,6 @@ export class CartService {
       .set('Authorization', `Token ${token}`)
       .set('Content-Type', 'application/json');
 
-    return this.http.post(ENDPOINT + 'purchase/', {}, { headers });
+    return this.http.post(ENDPOINT + 'purchase/confirm_purchase/', {}, { headers });
   }
 }

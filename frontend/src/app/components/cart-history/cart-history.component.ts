@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cart-history.component.html',
-  styleUrl: './cart-history.component.css'
+  styleUrl: './cart-history.component.css',
 })
 export class CartHistoryComponent {
   @Input() purchase: any | undefined;

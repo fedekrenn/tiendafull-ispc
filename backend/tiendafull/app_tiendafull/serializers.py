@@ -130,26 +130,32 @@ class CartDetailSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     email = serializers.SerializerMethodField()
     items = CartDetailSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = Cart
         fields = "__all__"
 
+
 class PurchaseSerializer(serializers.ModelSerializer):
     email = serializers.SerializerMethodField()
+
     def get_email(self, object):
         return object.email.email
+
     class Meta:
         model = Purchase
-        fields = '__all__'
-        
+        fields = "__all__"
+
+
 class PurchaseDetailSerializer(serializers.ModelSerializer):
     producto = ProductSerializer()
+
     class Meta:
         model = PurchaseDetail
-        fields = ['id', 'compra', 'producto', 'cantidad', 'precio_compra']
+        fields = ["id", "compra", "producto", "cantidad", "precio_compra"]
+
 
 class DeliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery
-        fields = '__all__'
+        fields = "__all__"
