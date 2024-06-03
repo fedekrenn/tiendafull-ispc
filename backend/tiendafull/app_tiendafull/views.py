@@ -15,6 +15,8 @@ from .permissions import IsAdminOrReadOnly
 from rest_framework.decorators import action
 from django.db.models import Sum, F
 from .utils import generate_invoice_number
+from django.shortcuts import get_object_or_404
+
 class LoginView(KnoxLoginView):
     permission_classes = [permissions.AllowAny]
 
@@ -118,7 +120,14 @@ class CartViewSet(viewsets.ModelViewSet):
             print(f"User: {request.user}, Email: {request.user}")
             carrito, _ = Cart.objects.get_or_create(email=request.user)
 
-            producto = Product.objects.get(pk=id_producto)
+            producto = get_object_or_404(Product, pk=id_producto)
+            
+            
+            if producto.stock < cantidad:
+                return Response(
+                    {"error": f"No hay suficiente stock para {producto.modelo}, stock actual : {producto.stock} unidades"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             item, item_created = CartDetail.objects.get_or_create(
                 carrito=carrito, producto=producto, defaults={"cantidad": cantidad}
             )
@@ -180,6 +189,10 @@ class PurchaseViewSet(viewsets.ModelViewSet):
           
             total = carrito.items.aggregate(total=Sum(F('producto__precio') * F('cantidad')))['total']
 
+            for item in carrito.items.all():
+                if item.producto.stock < item.cantidad:
+                    return Response({'error': f"No hay suficiente stock para {item.producto.modelo}, stock actual : {item.producto.stock} unidades"}, status=status.HTTP_400_BAD_REQUEST)
+            
             # Crear la compra
             compra = Purchase.objects.create(
                 nro_factura=generate_invoice_number(), 
@@ -199,6 +212,9 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                 )
                 purchase_details.append(detail)
 
+            for item in carrito.items.all():
+                item.producto.stock -= item.cantidad
+                item.producto.save()
           
             carrito.items.all().delete()
 
