@@ -1,0 +1,223 @@
+<main class="row justify-content-center">
+  <div class="container my-3">
+    <div class="row align-items">
+      <div class="row justify-content-center">
+        <img
+          class="logo-login"
+          src="../../../assets/logo-tienda.png"
+          alt="Logo"
+        />
+      </div>
+      <div class="text-center">
+        <h3 class="fw-bold">Registro de nuevo usuario</h3>
+      </div>
+
+      <form
+        [formGroup]="form"
+        class="register-form"
+        (ngSubmit)="onEnviar($event)"
+      >
+        <label for="username" class="form-label"
+          >Nombre de usuario:
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            formControlName="username"
+            placeholder="miusuario"
+            required
+          />
+          @if (username && username.invalid && (username.dirty ||
+          username.touched)) {
+          <div class="alert alert-danger">
+            @if (username.errors?.['required']) {
+            <div>El nombre de usuario es un campo requerido.</div>
+            } @if (username.errors?.['minlength']) {
+            <div>El nombre de usuario debe tener al menos 3 caracteres.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="first_name" class="form-label"
+          >Nombre:
+          <input
+            type="text"
+            class="form-control"
+            id="first_name"
+            name="first_name"
+            formControlName="first_name"
+            placeholder="Jose"
+            required
+          />
+          @if (first_name && first_name.invalid && (first_name.dirty ||
+          first_name.touched)) {
+          <div class="alert alert-danger">
+            @if (first_name.errors?.['required']) {
+            <div>Nombre es un campo requerido.</div>
+            } @if (first_name.errors?.['minlength']) {
+            <div>El nombre debe tener al menos 3 caracteres.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="last_name" class="form-label"
+          >Apellido:
+          <input
+            type="text"
+            class="form-control"
+            id="last_name"
+            name="last_name"
+            formControlName="last_name"
+            placeholder="Hernandez"
+            required
+          />
+          @if (last_name && last_name.invalid && (last_name.dirty ||
+          last_name.touched)) {
+          <div class="alert alert-danger">
+            @if (last_name.errors?.['required']) {
+            <div>Apellido es un campo requerido.</div>
+            } @if (last_name.errors?.['minlength']) {
+            <div>El apellido debe tener al menos 3 caracteres.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="nro_documento" class="form-label"
+          >DNI:
+          <input
+            type="number"
+            class="form-control"
+            id="nro_documento"
+            name="nro_documento"
+            formControlName="nro_documento"
+            placeholder="Ej: 20111222"
+            required
+          />
+          @if (nro_documento && nro_documento.invalid && (nro_documento.dirty ||
+          nro_documento.touched)) {
+          <div class="alert alert-danger">
+            @if (nro_documento.errors?.['required']) {
+            <div>DNI es un campo requerido.</div>
+            } @if (nro_documento.errors?.['min']) {
+            <div>El DNI debe tener 7 u 8 caracteres.</div>
+            } @if (nro_documento.errors?.['max']) {
+            <div>El DNI debe tener 7 u 8 caracteres.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="telefono" class="form-label"
+          >Teléfono:
+          <input
+            type="tel"
+            class="form-control"
+            id="telefono"
+            name="telefono"
+            formControlName="telefono"
+            required
+            placeholder="Código de área sin el 0 y número sin el 15"
+          />
+          @if (telefono && telefono.invalid && (telefono.dirty ||
+          telefono.touched)) {
+          <div class="alert alert-danger">
+            @if (telefono.errors?.['required']) {
+            <div>Teléfono es un campo requerido.</div>
+            } @if (telefono.errors?.['pattern']) {
+            <div>El teléfono debe tener 10 números Ej:3512543876.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="email" class="form-label"
+          >Email:
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            formControlName="email"
+            placeholder="joseh@gmail.com"
+            required
+          />
+          @if (email && email.invalid && (email.dirty || email.touched)) {
+          <div class="alert alert-danger">
+            @if (email.errors?.['required']) {
+            <div>Email es un campo requerido.</div>
+            } @if (email.errors?.['email']) {
+            <div>El formato del email debe ser válido.</div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="pass1" class="form-label"
+          >Contraseña:
+          <input
+            type="password"
+            class="form-control"
+            id="pass1"
+            name="pass1"
+            formControlName="password1"
+            required
+          />
+          @if (password1 && password1.invalid && (password1.dirty ||
+          password1.touched)) {
+          <div class="alert alert-danger">
+            @if (password1.errors?.['required']) {
+            <div>Contraseña es un campo requerido.</div>
+            } @if (password1.errors?.['minlength'] ||
+            password1.errors?.['maxlength']) {
+            <div>
+              El formato de la contraseña debe ser entre 6 y 20 caracteres.
+            </div>
+            }
+          </div>
+          }
+        </label>
+
+        <label for="pass2" class="form-label"
+          >Repetir contraseña:
+          <input
+            type="password"
+            class="form-control"
+            id="pass2"
+            name="pass2"
+            formControlName="password2"
+            required
+          />
+          @if (password2 && password2.invalid && (password2.dirty ||
+          password2.touched)) {
+          <div class="alert alert-danger">
+            @if (password2.errors?.['required']) {
+            <div>Contraseña es un campo requerido.</div>
+            } @if (password2.errors?.['minlength'] ||
+            password2.errors?.['maxlength']) {
+            <div>
+              El formato de la contraseña debe ser entre 6 y 20 caracteres.
+            </div>
+            }
+          </div>
+          } @if (form && form.errors?.['notEqualPassword'] && (form.touched ||
+          form.dirty)) {
+          <div class="alert alert-danger">Las contraseñas NO coinciden.</div>
+          }
+        </label>
+
+        <button type="submit" [disabled]="!form.valid" class="btn btn-primary">
+          Crear cuenta
+        </button>
+        <span
+          >Si ya tienes cuenta,
+          <a routerLink="/inicio-sesion"> Logueate</a></span
+        >
+        <br />
+      </form>
+    </div>
+  </div>
+</main>

@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,40 +16,52 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
+  contador: number = 1;
   form!: FormGroup;
-  contador: number = 0;
-  usuarioAdmin: string = 'admin@admin.com';
-  passAdmin: string = 'admin';
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email], []],
+      username: ['', [Validators.required, Validators.email], []],
       password: ['', [Validators.required], []],
     });
   }
 
-  get Password() {
+  get username() {
+    return this.form.get('username');
+  }
+
+  get password() {
     return this.form.get('password');
   }
 
-  get Email() {
-    return this.form.get('email');
-  }
-
   validarUsuario() {
-    if (this.form.value.email != '' && this.form.value.password != '') {
-      this.contador = this.contador + 1;
+    if (this.form.value.username != '' && this.form.value.password != '') {
+      const logUser = {
+        username: this.form.value.username,
+        password: this.form.value.password,
+      };
+
       if (this.contador < 3) {
-        if (this.form.value.email == this.usuarioAdmin) {
-          if (this.form.value.password == this.passAdmin) {
-            alert('Bienvenido ' + this.form.value.email);
-            this.router.navigate(['/']);
-          } else {
-            alert('Contraseña incorrecta');
-          }
-        } else {
-          alert('Correo electrónico incorrecto');
-        }
+        this.authService.login(logUser).subscribe({
+          next: (res) => {
+            if (res.token) {
+              alert('Bienvenido ' + res.user.email);
+              this.router.navigate(['/productos']);
+              this.contador = 0;
+            }
+          },
+          error: (error) => {
+            alert(
+              'Error al iniciar sesión. Intento ' + this.contador + ' de 3'
+            );
+            console.error(error);
+            this.contador++;
+          },
+        });
       } else {
         alert('Usuario bloqueado');
       }

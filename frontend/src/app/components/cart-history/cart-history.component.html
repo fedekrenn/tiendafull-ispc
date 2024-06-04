@@ -1,0 +1,8 @@
+@if (purchase) {
+<div>
+  <h2>Detalles de la compra</h2>
+  <p>Fecha: {{ purchase.fecha }}</p>
+  <p>Total: {{ purchase.total | currency }}</p>
+  <p>Número de factura: {{ purchase.nro_factura }}</p>
+</div>
+}

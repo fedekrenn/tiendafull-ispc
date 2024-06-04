@@ -82,3 +82,9 @@ main {
   background: #03244e;
   transition: 0.5s;
 }
+
+.centered-text {
+  text-align: justify;  
+  margin-left: 10%;
+  width: 80%; /* Ajusta el ancho según tus necesidades */
+}

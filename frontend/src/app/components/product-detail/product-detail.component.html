@@ -1,0 +1,74 @@
+<main>
+  @if (loading) {
+  <app-loading></app-loading>
+  } @else {
+  <article class="product-section">
+    <div>
+      <img [src]="bike.imagen" [alt]="bike.marca" />
+      @if (isLoggedIn) {
+      <div class="add-to-cart-section">
+        <button
+          type="button"
+          class="item-cart-btn"
+          (click)="addItemCart(bike.id)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            color="#CACBCC"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart"
+          >
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <path
+              d="M4 19a2 2 0 1 0 4 0 2 2 0 1 0-4 0m11 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0"
+            />
+            <path d="M17 17H6V3H4" />
+            <path d="m6 5 14 1-1 7H6" /></svg
+          >Agregar
+        </button>
+        <label for="cantidad" class="form-label">
+          Cantidad:
+          <input
+            name="cantidad"
+            type="number"
+            min="1"
+            [max]="bike.stock"
+            value="1"
+            [(ngModel)]="cantidad"
+          />
+        </label>
+      </div>
+      }
+    </div>
+    <div class="detail-section">
+      <h1>{{ bike.marca }} {{ bike.modelo }}</h1>
+      <h2 class="price">
+        {{ bike.precio | currency : "$" : "symbol" : "1.2-2" }}
+      </h2>
+      <div>
+        <h2>Detalles</h2>
+        <ul>
+          <li><b>Material:</b> {{ bike.material }}</li>
+          <li><b>Marca:</b> {{ bike.marca }}</li>
+          <li><b>Estilo:</b> {{ bike.estilo }}</li>
+          <li><b>Color:</b> {{ bike.color }}</li>
+          <li><b>Rodado:</b> {{ bike.rodado }}</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Descripción</h2>
+        <p class="description">
+          {{ bike.detalle }}
+        </p>
+      </div>
+    </div>
+  </article>
+  }
+</main>

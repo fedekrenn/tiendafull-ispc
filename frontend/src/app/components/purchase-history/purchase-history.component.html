@@ -1,0 +1,41 @@
+
+  <h1>Historial de compras</h1>
+  <section>
+    @if (isLoading) {
+    <app-loading></app-loading>
+    } @else { @for (purchase of purchases; track $index) {
+    <div class="purchase">
+      <h2><b>Nro factura</b> # {{ purchase.nro_factura }}</h2>
+      <h2><b>Fecha:</b> {{ purchase.fecha | date : "dd/MM/yyyy" }}</h2>
+      <h3>Items:</h3>
+      <ul>
+        @for (item of purchase.detalle; track $index) {
+        <li>
+          <img
+            [src]="item.producto.imagen"
+            [alt]="
+              'Imagen pequeña del producto ' +
+              item.producto.marca +
+              ' ' +
+              item.producto.modelo
+            "
+          />
+          <div class="row-child">
+            <h4>{{ item.producto.marca }} {{ item.producto.modelo }}</h4>
+            <p>{{ item.producto.detalle?.substring(0, 50) }}...</p>
+          </div>
+          <div class="row-child">
+            <p><b>Cantidad:</b> {{ item.cantidad }}</p>
+            <p>
+              <b>Precio unitario:</b> $
+              {{ item.precio_compra | number : "1.2-2" }}
+            </p>
+          </div>
+        </li>
+        }
+      </ul>
+      <h3><b>Total:</b> $ {{ purchase.total | number : "1.2-2" }}</h3>
+    </div>
+    } }
+  </section>
+

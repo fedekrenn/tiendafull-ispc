@@ -1,0 +1,37 @@
+<main>
+  @if (purchaseConfirmed) {
+  <app-cart-history [purchase]="purchase"></app-cart-history>
+  } @else {
+  <h1>Productos en el carrito:</h1>
+  @if (isLoading) {
+  <div class="spinner-container">
+    <app-loading></app-loading>
+  </div>
+  } @else { @if (cartItems.length === 0) {
+  <section class="no-items">
+    <h2>No hay productos en el carrito!</h2>
+    <h3>
+      Puedes agregar uno navegando nuestro
+      <a [routerLink]="'/productos'">catálogo</a>
+    </h3>
+    <img
+      src="../../../assets/imgs/carrito-vacio.png"
+      alt="Imagen de un carrito de supermercado vacío"
+    />
+  </section>
+  } @else {
+  <section class="items-container">
+    @for (item of cartItems; track $index) {
+    <app-cart-item
+      [item]="item"
+      (itemDeleted)="onDeleteItem($event)"
+    ></app-cart-item>
+    }
+  </section>
+  <div class="cart-total">
+    <h2>Importe total:</h2>
+    <h3>{{ totalAmount | currency : "$" : "symbol" : "1.2-2" }}</h3>
+    <button class="pay-btn" (click)="realizarCompra()">Comprar</button>
+  </div>
+  } } }
+</main>

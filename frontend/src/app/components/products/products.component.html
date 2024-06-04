@@ -1,0 +1,17 @@
+<main>
+  <h1>Productos en venta:</h1>
+  <div class="main-section">
+    @if (loading){
+    <app-loading></app-loading>
+    } @for (bike of bikes; track $index) {
+    <div class="item-card">
+      <img [src]="bike.imagen" [alt]="bike.marca" />
+      <h2>{{ bike.marca }} {{ bike.modelo }}</h2>
+      <h3>{{ bike.precio | currency : "$" : "symbol" : "1.2-2" }}</h3>
+      <a class="item-card-btn" [routerLink]="'/productos/' + bike.id"
+        >Ver detalle</a
+      >
+    </div>
+    }
+  </div>
+</main>

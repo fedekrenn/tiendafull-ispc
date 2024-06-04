@@ -1,0 +1,30 @@
+<article>
+  <div class="cart-item">
+    <a [routerLink]="'/productos/' + item?.producto?.id">
+      <img
+        [src]="item?.producto?.imagen"
+        [alt]="
+          'Imagen miniatura del producto ' +
+          item?.producto?.marca +
+          item?.producto?.modelo
+        "
+      />
+    </a>
+    <div class="cart-item-info">
+      <h1>{{ item?.producto?.marca }} {{ item?.producto?.modelo }}</h1>
+      <div>
+        <p>
+          <b>Precio unitario:</b>
+          {{ item?.producto?.precio | currency : "$" : "symbol" : "1.2-2" }}
+        </p>
+        <p><b>Cantidad:</b> {{ item?.cantidad }}</p>
+      </div>
+    </div>
+    <img
+      class="trash-icon"
+      src="../../../assets/icons/trash.svg"
+      alt="Icono de borrado"
+      (click)="deleteItem(item?.id)"
+    />
+  </div>
+</article>

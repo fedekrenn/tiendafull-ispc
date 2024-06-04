@@ -1,0 +1,143 @@
+<h2>Productos existentes:</h2>
+@if (isLoading) {
+<div class="loading-section">
+  <app-loading></app-loading>
+</div>
+} @else {
+<ul class="product-list">
+  @for (product of productos; track $index) {
+  <li class="product-card">
+    <div class="product-details">
+      <h3>Modelo : {{ product.modelo }}</h3>
+      <img
+        [src]="product.imagen"
+        alt="{{ product.modelo }}"
+        class="product-image"
+      />
+      <p>Stock : {{ product.stock }}</p>
+      <p>Precio : {{ product.precio | currency }}</p>
+    </div>
+  </li>
+  }
+</ul>
+}
+<h2>Agregar nuevo producto:</h2>
+<form
+  [formGroup]="productoForm"
+  (ngSubmit)="crearProducto($event)"
+  class="product-form"
+>
+  <div class="form-group">
+    <label for="modelo">Modelo:</label>
+    <input
+      id="modelo"
+      formControlName="modelo"
+      type="text"
+      class="form-control"
+    />
+    @if (productoForm.get('modelo')?.invalid &&
+    productoForm.get('modelo')?.touched) {
+    <div class="error">Modelo requerido</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="precio">Precio:</label>
+    <input
+      id="precio"
+      formControlName="precio"
+      type="number"
+      class="form-control"
+    />
+    @if (productoForm.get('precio')?.invalid &&
+    productoForm.get('precio')?.touched) {
+    <div class="error">Precio requerido</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="stock">Stock:</label>
+    <input
+      id="stock"
+      formControlName="stock"
+      type="number"
+      class="form-control"
+    />
+    @if (productoForm.get('stock')?.invalid &&
+    productoForm.get('stock')?.touched) {
+    <div class="error">Stock requerido</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="imagen">Imagen:</label>
+    <input
+      id="imagen"
+      formControlName="imagen"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="detalle">Detalle:</label>
+    <input
+      id="detalle"
+      formControlName="detalle"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="marca">Marca:</label>
+    <input
+      id="marca"
+      formControlName="marca"
+      type="number"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="rodado">Rodado:</label>
+    <input
+      id="rodado"
+      formControlName="rodado"
+      type="number"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="estilo">Estilo:</label>
+    <input
+      id="estilo"
+      formControlName="estilo"
+      type="number"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="material">Material:</label>
+    <input
+      id="material"
+      formControlName="material"
+      type="number"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="color">Color:</label>
+    <input
+      id="color"
+      formControlName="color"
+      type="number"
+      class="form-control"
+    />
+  </div>
+
+  <button type="submit" class="btn">Crear Producto</button>
+</form>

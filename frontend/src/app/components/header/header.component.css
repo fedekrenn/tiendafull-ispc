@@ -1,7 +1,48 @@
 header {
   font-family: "Roboto", sans-serif;
+  position: relative;
+}
+
+nav {
+  justify-content: space-between;
 }
 
 .logo-tienda {
   width: 100px;
+}
+
+.icons-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  gap: 5px;
+
+  & li img {
+    background-color: #525f68;
+    border-radius: 50%;
+    padding: 5px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      filter: grayscale(1.6);
+    }
+  }
+  .nav-item a.nav-link {
+    color: white;
+  }
+
+  .icons-container {
+    display: flex;
+    flex-direction: column;
+    color: rgb(169, 165, 165);
+  }
+}
+
+.user-name {
+  position: absolute;
+  color: rgb(169, 165, 165);
+  right: 10px;
+  top: 10px;
+  font-size: 11px;
 }
